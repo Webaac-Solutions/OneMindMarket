@@ -1,0 +1,380 @@
+/* Page background */
+.joinreq-page {
+  background: radial-gradient(circle at top, #121212, var(--bg));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 30px 16px;
+}
+
+/* Card */
+.joinreq-card {
+  width: 100%;
+  max-width: 460px;
+  background: linear-gradient(180deg, #0e0e0e, #050505);
+  border-radius: 18px;
+  padding: 36px 32px;
+  box-shadow:
+    0 0 0 1px var(--accent-border),
+    0 20px 60px rgba(0, 0, 0, 0.75),
+    0 0 40px var(--accent-soft);
+  animation: joinreqFade 0.6s ease;
+  border: 1px solid var(--accent);
+}
+
+/* Form */
+.joinreq-form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+/* Field */
+.joinreq-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.joinreq-field--dropdown {
+  position: relative;
+}
+
+.joinreq-dropdown {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  right: 0;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.4);
+  max-height: min(240px, 40vh);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+  z-index: 20;
+  list-style: none;
+  margin: 0;
+  padding: 6px;
+  animation: joinreq-dropdown-in 0.18s ease both;
+}
+
+@keyframes joinreq-dropdown-in {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.joinreq-dropdown-item {
+  display: flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 10px 12px;
+  border-radius: var(--radius-sm);
+  color: var(--text);
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition:
+    background 0.15s ease,
+    color 0.15s ease;
+}
+
+.joinreq-dropdown-item:hover,
+.joinreq-dropdown-item--active,
+.joinreq-dropdown-item:active {
+  background: var(--accent-soft);
+  color: var(--accent-text);
+}
+
+.joinreq-field label {
+  font-size: 0.85rem;
+  color: #bcbcbc;
+}
+
+/* Inputs */
+.joinreq-field input,
+.joinreq-field select {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 11px 14px;
+  color: var(--text);
+  font-size: 0.95rem;
+  outline: none;
+  transition: all 0.25s ease;
+}
+
+.joinreq-field select {
+  cursor: pointer;
+}
+
+.joinreq-field select,
+.joinreq-combo input {
+  appearance: none;
+  -webkit-appearance: none;
+  padding-right: 40px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%239a9a9a' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+}
+
+.joinreq-select-btn {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 100%;
+  text-align: left;
+  font-family: inherit;
+  padding: 11px 40px 11px 14px;
+  background-color: var(--surface-2);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%239a9a9a' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  color: var(--text);
+  font-size: 0.95rem;
+  cursor: pointer;
+  outline: none;
+  transition: all 0.25s ease;
+}
+
+.joinreq-select-btn--empty {
+  color: var(--text-faint);
+}
+
+.joinreq-select-btn:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-soft);
+}
+
+.joinreq-field select option {
+  background: var(--surface-2);
+  color: var(--text);
+}
+
+.joinreq-back {
+  width: 100%;
+  max-width: 460px;
+  margin: 0 auto 14px;
+}
+
+.joinreq-back .back-btn {
+  margin-bottom: 0;
+}
+
+.joinreq-combo {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.joinreq-field input::placeholder {
+  color: var(--text-faint);
+}
+
+/* Focus */
+.joinreq-field input:focus,
+.joinreq-field select:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-soft);
+}
+
+/* Button */
+.joinreq-btn {
+  margin-top: 10px;
+  padding: 12px;
+  border-radius: var(--radius-sm);
+  border: none;
+  background: var(--accent);
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.joinreq-btn:hover {
+  background: var(--accent-hover);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-accent);
+}
+
+.joinreq-btn:disabled {
+  background: var(--surface-3);
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+/* Message */
+.joinreq-message {
+  margin-top: 18px;
+  text-align: center;
+  font-size: 0.85rem;
+  color: #9ae6b4;
+}
+
+/* Animation */
+@keyframes joinreqFade {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .joinreq-page {
+    padding: 20px 14px 32px;
+  }
+
+  .joinreq-card {
+    padding: 28px 22px;
+  }
+
+  .joinreq-form {
+    gap: 16px;
+  }
+
+  .joinreq-field input,
+  .joinreq-field select,
+  .joinreq-select-btn {
+    min-height: 48px;
+    font-size: 16px;
+  }
+
+  .joinreq-btn {
+    min-height: 48px;
+    font-size: 1rem;
+  }
+
+  .joinreq-dropdown-item {
+    min-height: 46px;
+    font-size: 1rem;
+  }
+}
+
+.joinreq-error {
+  font-size: 12.5px;
+  font-weight: 500;
+  color: var(--accent-text);
+}
+
+.joinreq-field--error input,
+.joinreq-field--error select,
+.joinreq-field--error .joinreq-select-btn {
+  border-color: #990a0a;
+}
+
+.joinreq-message--error {
+  color: var(--accent-text);
+}
+
+.joinreq-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  text-decoration: none;
+}
+
+.joinreq-success {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 14px;
+}
+
+.joinreq-success h2 {
+  font-family: var(--font-display);
+  font-size: 1.7rem;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.joinreq-success p {
+  color: var(--text-muted);
+  font-size: 14.5px;
+  line-height: 1.6;
+}
+
+.joinreq-success-icon {
+  width: 64px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: rgba(34, 197, 94, 0.15);
+  border: 1px solid rgba(34, 197, 94, 0.4);
+  color: #22c55e;
+  font-size: 30px;
+  font-weight: 700;
+}
+
+.joinreq-next-steps {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  text-align: left;
+  counter-reset: joinreq-step;
+}
+
+.joinreq-next-steps li {
+  position: relative;
+  padding: 12px 14px 12px 44px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  color: var(--text-muted);
+  font-size: 14px;
+  line-height: 1.5;
+  counter-increment: joinreq-step;
+}
+
+.joinreq-next-steps li::before {
+  content: counter(joinreq-step);
+  position: absolute;
+  left: 12px;
+  top: 12px;
+  width: 22px;
+  height: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: var(--accent-soft);
+  color: var(--accent-text);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.joinreq-success .joinreq-btn {
+  width: 100%;
+  margin-top: 6px;
+}
+
+.joinreq-secondary-link {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-muted);
+  transition: color 0.2s ease;
+}
+
+.joinreq-secondary-link:hover {
+  color: var(--text);
+}

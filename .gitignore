@@ -1,0 +1,27 @@
+# Dependencies
+node_modules/
+
+# Build output
+.next/
+build/
+dist/
+out/
+
+# Environment files (secrets)
+.env
+.env.*
+!.env.example
+
+# Logs
+*.log
+npm-debug.log*
+
+# Local tooling
+.netlify/
+.vercel/
+.vscode/
+.idea/
+
+# OS junk
+.DS_Store
+Thumbs.db

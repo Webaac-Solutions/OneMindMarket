@@ -1,0 +1,221 @@
+/* ===== ABOUT PAGE ===== */
+.about-page {
+  margin: auto;
+  padding: 0;
+  color: var(--text-muted);
+  background-color: black;
+  width: 100%;
+}
+
+/* HERO / ABOUT US HEADING */
+.about-hero {
+  text-align: center;
+  padding: 20px 20px 16px;
+}
+
+.about-hero h1 {
+  font-family: var(--font-display);
+  font-size: 32px;
+  font-weight: 600;
+  color: var(--text);
+  letter-spacing: 0;
+  margin-top: 6px;
+}
+
+.about-hero-gif {
+  height: 80px;
+  width: 300px;
+  margin: 12px auto;
+  display: block;
+}
+
+.about-tagline {
+  margin-top: 14px;
+  font-size: 18px;
+  color: var(--text-muted);
+}
+
+/* SHARED SECTION STYLES */
+.about-section {
+  max-width: 820px;
+  margin: 0 auto;
+  padding: 28px 20px;
+}
+
+.about-section h2 {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 24px;
+  padding-bottom: 12px;
+  border-bottom: 3px solid var(--accent);
+  letter-spacing: 1px;
+}
+
+/* FOUNDER'S MESSAGE */
+.founder-content p {
+  font-size: 17px;
+  line-height: 1.9;
+  color: var(--text-muted);
+  margin-bottom: 18px;
+}
+
+.founder-sign-off {
+  margin-top: 28px;
+  font-style: italic;
+  color: var(--text-muted);
+}
+
+/* WHAT IS OMM */
+.whatisomm-content p {
+  font-size: 17px;
+  line-height: 1.9;
+  color: var(--text-muted);
+  margin-bottom: 18px;
+}
+
+/* CONTACT US FORM */
+.contact-section {
+  padding-bottom: 80px;
+}
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.contact-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.contact-field label {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.contact-field input {
+  padding: 14px 18px;
+  font-size: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--text);
+  outline: none;
+  transition:
+    border-color 0.3s,
+    box-shadow 0.3s;
+}
+
+.contact-field input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-soft);
+}
+
+.contact-field input::placeholder {
+  color: var(--text-faint);
+}
+
+/* WHATSAPP BUTTON */
+.whatsapp-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 14px 24px;
+  background: #25d366;
+  color: var(--text);
+  border: none;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  transition:
+    background 0.25s,
+    transform 0.2s;
+  margin-top: 10px;
+}
+
+.whatsapp-btn:hover {
+  background: #1da851;
+  transform: translateY(-2px);
+}
+
+.whatsapp-icon {
+  font-size: 22px;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .about-hero h1 {
+    font-size: 32px;
+  }
+
+  .about-hero-gif {
+    height: 60px;
+    width: 220px;
+  }
+
+  .about-tagline {
+    font-size: 15px;
+  }
+
+  .about-section h2 {
+    font-size: 22px;
+  }
+
+  .founder-content p,
+  .whatisomm-content p {
+    font-size: 15px;
+  }
+
+  .contact-field input {
+    font-size: 15px;
+    padding: 12px 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .about-hero {
+    padding: 14px 12px 12px;
+  }
+
+  .about-hero h1 {
+    font-size: 24px;
+  }
+
+  .about-hero-gif {
+    height: 45px;
+    width: 160px;
+  }
+
+  .about-section {
+    padding: 30px 15px;
+  }
+
+  .about-section h2 {
+    font-size: 20px;
+  }
+
+  .contact-field input {
+    font-size: 14px;
+    padding: 11px 12px;
+  }
+
+  .whatsapp-btn {
+    font-size: 15px;
+    padding: 12px 20px;
+  }
+}
+
+.about-loader-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  background: var(--bg);
+}

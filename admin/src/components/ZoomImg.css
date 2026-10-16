@@ -1,0 +1,50 @@
+.zoomable-img {
+  cursor: zoom-in;
+  transition: opacity 0.15s ease;
+}
+
+.zoomable-img:hover {
+  opacity: 0.85;
+}
+
+.zoom-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  background: rgba(0, 0, 0, 0.92);
+  cursor: zoom-out;
+  animation: admin-fade-in 0.15s ease;
+}
+
+.zoom-full {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  border-radius: 8px;
+  cursor: default;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
+}
+
+.zoom-close {
+  position: absolute;
+  top: max(14px, env(safe-area-inset-top));
+  right: 14px;
+  width: 42px;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.14);
+  color: #fff;
+  cursor: pointer;
+}
+
+.zoom-close:hover {
+  background: rgba(255, 255, 255, 0.24);
+}
