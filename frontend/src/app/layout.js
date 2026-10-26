@@ -1,4 +1,4 @@
-import { Fraunces, Inter, Carlito } from "next/font/google";
+import { Inter } from "next/font/google";
 import { Suspense } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -11,25 +11,11 @@ import { SITE_URL } from "@/lib/api";
 import { DEFAULT_LOGO, SITE_NAME } from "@/lib/seo";
 import "./globals.css";
 
-const fraunces = Fraunces({
-  subsets: ["latin"],
-  variable: "--font-display",
-  weight: ["500", "600", "700", "900"],
-  style: ["normal", "italic"],
-  display: "swap",
-});
-
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-body",
   weight: ["400", "500", "600", "700"],
-  display: "swap",
-});
-
-const logoFont = Carlito({
-  subsets: ["latin"],
-  variable: "--font-logo",
-  weight: ["400", "700"],
+  style: ["normal", "italic"],
   display: "swap",
 });
 
@@ -128,10 +114,7 @@ const organizationJsonLd = {
 
 export default function RootLayout({ children }) {
   return (
-    <html
-      lang="en-IN"
-      className={`${fraunces.variable} ${inter.variable} ${logoFont.variable}`}
-    >
+    <html lang="en-IN" className={inter.variable}>
       <head>
         <SeoJsonLd
           data={{

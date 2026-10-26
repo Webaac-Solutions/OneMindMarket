@@ -15,7 +15,9 @@ import {
 } from "react-icons/fi";
 import { BASE_URL, UPLOADS_URL } from "@/lib/api";
 import { getCategoryIcon } from "@/lib/categoryIcons";
+import { FAQS, HOME_FAQ_LIMIT } from "@/lib/faqs";
 import "@/styles/Home.css";
+import "@/styles/Faq.css";
 
 // TODO: replace with the final client copy
 const HERO_COPY = {
@@ -519,6 +521,30 @@ const HomeClient = ({
             Join our community of native entrepreneurs who are transforming
             local businesses in global successes.
           </p>
+        </div>
+      </section>
+
+      <section className="faq-section fade-in-up fade-in-up--delay-2">
+        <div className="faq-section-head">
+          <span className="eyebrow">FAQ</span>
+          <h2>Frequently Asked Questions</h2>
+        </div>
+        <div className="faq-list">
+          {FAQS.slice(0, HOME_FAQ_LIMIT).map((f) => (
+            <div key={f.id} className="faq-item">
+              <p className="faq-q">
+                <span className="faq-label">Q:</span> {f.question}
+              </p>
+              <p className="faq-a">
+                <span className="faq-label">A:</span> {f.answer}
+              </p>
+            </div>
+          ))}
+        </div>
+        <div className="faq-more">
+          <Link href="/faq" className="faq-more-link">
+            Read more <FiArrowRight size={16} />
+          </Link>
         </div>
       </section>
     </div>

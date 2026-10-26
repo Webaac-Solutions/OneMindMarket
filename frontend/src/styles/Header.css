@@ -52,7 +52,8 @@
   display: flex;
   align-items: baseline;
   gap: 0.35em;
-  font-family: Calibri, Carlito, "Segoe UI", sans-serif;
+  font-family: var(--font-body);
+  font-weight: 700;
   font-size: 19px;
   line-height: 1;
   letter-spacing: 0.08em;
@@ -65,7 +66,7 @@
 
 .header-logo-text-sub {
   font-weight: 700;
-  color: var(--text-muted);
+  color: var(--text);
 }
 
 /* Nav */

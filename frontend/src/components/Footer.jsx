@@ -85,6 +85,9 @@ const Footer = () => {
               <li>
                 <Link href="/articles">Articles</Link>
               </li>
+              <li>
+                <Link href="/faq">FAQ</Link>
+              </li>
             </ul>
           </div>
 
@@ -97,6 +100,9 @@ const Footer = () => {
               </li>
               <li>
                 <Link href="/join">Join Member Program</Link>
+              </li>
+              <li>
+                <Link href="/announcements">Announcements</Link>
               </li>
             </ul>
           </div>

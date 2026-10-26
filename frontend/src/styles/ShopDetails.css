@@ -435,6 +435,16 @@ a {
   font-weight: 600;
 }
 
+.shop-short-details p a {
+  color: var(--text-muted);
+  font-weight: 400;
+}
+
+.shop-short-details p a:hover {
+  color: var(--text);
+  text-decoration: underline;
+}
+
 .loading,
 .not-found {
   text-align: center;

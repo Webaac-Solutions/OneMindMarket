@@ -22,9 +22,9 @@
   --accent-border: rgba(153, 10, 10, 0.55);
 
   /* Type */
-  --font-display: "Fraunces", Georgia, serif;
   --font-body:
     "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-display: var(--font-body);
 
   /* Scale */
   --radius-sm: 8px;
