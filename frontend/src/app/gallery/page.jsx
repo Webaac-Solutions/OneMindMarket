@@ -1,7 +1,11 @@
 import GalleryClient from "@/components/GalleryClient";
 import SeoJsonLd from "@/components/SeoJsonLd";
 import { BASE_URL, SITE_URL } from "@/lib/api";
-import { absoluteAssetUrl, buildBreadcrumbList, buildWebPageJsonLd } from "@/lib/seo";
+import {
+  absoluteAssetUrl,
+  buildBreadcrumbList,
+  buildWebPageJsonLd,
+} from "@/lib/seo";
 
 export const metadata = {
   title: "Business & Community Gallery",
@@ -16,7 +20,9 @@ export const metadata = {
     type: "website",
     siteName: "OneMind Market",
     locale: "en_IN",
-    images: [{ url: `${SITE_URL}/onemindlogo.png`, alt: "OneMind Market logo" }],
+    images: [
+      { url: `${SITE_URL}/onemindlogo.png`, alt: "OneMind Market logo" },
+    ],
   },
   twitter: {
     card: "summary_large_image",
@@ -29,7 +35,10 @@ export const metadata = {
 
 async function getGalleryItems() {
   try {
-    const res = await fetch(`${BASE_URL}/gallery`, { cache: "no-store" });
+    const res = await fetch(`${BASE_URL}/gallery`, {
+      cache: "no-store",
+      signal: AbortSignal.timeout(8000),
+    });
     if (!res.ok) return [];
     const data = await res.json();
     return Array.isArray(data) ? data.filter((item) => item?.slug) : [];
@@ -44,7 +53,9 @@ function getFirstImage(item) {
     item.media && item.media.length > 0
       ? item.media
       : (item.images || []).map((url) => ({ type: "image", url }));
-  const firstImage = media.find((entry) => entry?.type === "image" && entry.url);
+  const firstImage = media.find(
+    (entry) => entry?.type === "image" && entry.url,
+  );
   return firstImage ? absoluteAssetUrl(firstImage.url) : null;
 }
 

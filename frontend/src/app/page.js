@@ -4,7 +4,10 @@ import SeoJsonLd from "@/components/SeoJsonLd";
 
 async function safeJson(url) {
   try {
-    const res = await fetch(url, { cache: "no-store" });
+    const res = await fetch(url, {
+      cache: "no-store",
+      signal: AbortSignal.timeout(8000),
+    });
     if (!res.ok) return [];
     return await res.json();
   } catch {

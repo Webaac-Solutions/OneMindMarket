@@ -23,6 +23,7 @@ const JoinRequestPage = () => {
   const [locations, setLocations] = useState([]);
   const [loading, setLoading] = useState(false);
   const [ready, setReady] = useState(false);
+  const [dataReady, setDataReady] = useState(false);
   const [errors, setErrors] = useState({});
   const [sent, setSent] = useState(false);
   const [categoryOpen, setCategoryOpen] = useState(false);
@@ -46,15 +47,16 @@ const JoinRequestPage = () => {
   }, []);
 
   useEffect(() => {
-    fetch(`${BASE_URL}/categories`)
-      .then((res) => res.json())
-      .then((data) => setCategories(Array.isArray(data) ? data : []))
-      .catch(() => setCategories([]));
+    const load = (path, set) =>
+      fetch(`${BASE_URL}/${path}`)
+        .then((res) => res.json())
+        .then((data) => set(Array.isArray(data) ? data : []))
+        .catch(() => set([]));
 
-    fetch(`${BASE_URL}/locations`)
-      .then((res) => res.json())
-      .then((data) => setLocations(Array.isArray(data) ? data : []))
-      .catch(() => setLocations([]));
+    Promise.all([
+      load("categories", setCategories),
+      load("locations", setLocations),
+    ]).then(() => setDataReady(true));
   }, []);
 
   useEffect(() => {
@@ -188,12 +190,8 @@ const JoinRequestPage = () => {
     }
   };
 
-  if (!ready) {
-    return (
-      <div className="joinreq-page">
-        <Loader />
-      </div>
-    );
+  if (!ready || !dataReady) {
+    return <Loader fullScreen />;
   }
 
   if (sent) {

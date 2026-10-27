@@ -79,7 +79,10 @@ export async function generateMetadata() {
 
 async function getArticles() {
   try {
-    const res = await fetch(`${BASE_URL}/articles`, { cache: "no-store" });
+    const res = await fetch(`${BASE_URL}/articles`, {
+      cache: "no-store",
+      signal: AbortSignal.timeout(8000),
+    });
     if (!res.ok) return [];
     const data = await res.json();
     return Array.isArray(data) ? data.filter((article) => article?.slug) : [];

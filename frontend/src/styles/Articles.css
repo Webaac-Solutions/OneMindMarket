@@ -14,7 +14,7 @@
 
 /* Article List */
 .articles-list {
-  max-width: 820px;
+  max-width: 1100px;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
@@ -127,7 +127,7 @@
 
 /* Article Detail Page */
 .article-detail-container {
-  max-width: 800px;
+  max-width: 1100px;
   margin: 0 auto;
   padding: 40px 20px 80px;
   overflow-wrap: break-word;

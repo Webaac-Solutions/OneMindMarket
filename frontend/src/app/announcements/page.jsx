@@ -14,6 +14,7 @@ async function getAnnouncements() {
   try {
     const res = await fetch(`${BASE_URL}/announcements?limit=50`, {
       cache: "no-store",
+      signal: AbortSignal.timeout(8000),
     });
     if (!res.ok) return [];
     const data = await res.json();
