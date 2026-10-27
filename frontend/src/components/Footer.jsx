@@ -74,9 +74,6 @@ const Footer = () => {
             <h4 className="footer-col-title">Network</h4>
             <ul className="footer-link-list">
               <li>
-                <Link href="/about">About Us</Link>
-              </li>
-              <li>
                 <Link href="/business-listing">Members Directory</Link>
               </li>
               <li>
@@ -87,9 +84,6 @@ const Footer = () => {
               </li>
               <li>
                 <Link href="/faq">FAQ</Link>
-              </li>
-              <li>
-                <Link href="/announcements">Announcements</Link>
               </li>
             </ul>
           </div>
@@ -103,6 +97,9 @@ const Footer = () => {
               </li>
               <li>
                 <Link href="/join">Join Member Program</Link>
+              </li>
+              <li>
+                <Link href="/announcements">Announcements</Link>
               </li>
             </ul>
           </div>

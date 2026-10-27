@@ -1,7 +1,7 @@
-import Link from "next/link";
 import PageHeading from "@/components/PageHeading";
+import AnnouncementsClient from "@/components/AnnouncementsClient";
 import { BASE_URL, UPLOADS_URL, SITE_URL } from "@/lib/api";
-import "@/styles/Faq.css";
+import "@/styles/Announcements.css";
 
 export const metadata = {
   title: "Announcements",
@@ -34,48 +34,7 @@ export default async function AnnouncementsPage() {
         title="Announcements"
         subtitle="News and updates from the OneMind Market network"
       />
-      {items.length === 0 ? (
-        <p className="announce-empty">No announcements yet.</p>
-      ) : (
-        <div className="announce-list">
-          {items.map((n) => {
-            const inner = (
-              <>
-                {n.image && (
-                  <img
-                    src={`${UPLOADS_URL}/${n.image}`}
-                    alt={n.title}
-                    className="announce-img"
-                    loading="lazy"
-                  />
-                )}
-                <div className="announce-body">
-                  <h2>{n.title}</h2>
-                  <p>{n.message}</p>
-                  <span className="announce-date">
-                    {new Date(n.createdAt).toLocaleDateString("en-US", {
-                      year: "numeric",
-                      month: "long",
-                      day: "numeric",
-                    })}
-                  </span>
-                </div>
-              </>
-            );
-            return (
-              <div key={n._id} className="announce-card">
-                {n.url ? (
-                  <Link href={n.url} className="announce-card-link">
-                    {inner}
-                  </Link>
-                ) : (
-                  inner
-                )}
-              </div>
-            );
-          })}
-        </div>
-      )}
+      <AnnouncementsClient items={items} uploadsUrl={UPLOADS_URL} />
     </div>
   );
 }
