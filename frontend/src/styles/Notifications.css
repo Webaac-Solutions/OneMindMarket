@@ -165,67 +165,201 @@ a.notif-item:hover {
   bottom: 20px;
   z-index: 70;
   display: flex;
-  gap: 12px;
-  width: 340px;
+  gap: 14px;
+  width: 380px;
   max-width: calc(100vw - 40px);
-  padding: 16px;
-  background: var(--surface);
-  border: 1px solid var(--border-strong);
-  border-radius: var(--radius-md);
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5);
+  padding: 20px 18px 16px;
+  overflow: hidden;
+  background:
+    radial-gradient(
+      circle at 0% 0%,
+      rgba(var(--accent-rgb), 0.28),
+      transparent 55%
+    ),
+    var(--surface);
+  border: 1px solid var(--accent-border);
+  border-radius: var(--radius-lg);
+  box-shadow:
+    0 20px 50px rgba(0, 0, 0, 0.6),
+    0 0 0 1px rgba(255, 255, 255, 0.03),
+    0 0 36px rgba(var(--accent-rgb), 0.25);
+  animation:
+    pushIn 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) both,
+    pushFloat 4s ease-in-out 1s infinite;
+}
+
+/* Animated accent bar along the top */
+.push-prompt-glow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(
+    90deg,
+    var(--accent-deep),
+    var(--accent-text),
+    var(--accent-deep)
+  );
+  background-size: 200% 100%;
+  animation: pushBar 2.6s linear infinite;
 }
 
 .push-prompt-icon {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  width: 38px;
-  height: 38px;
+  width: 46px;
+  height: 46px;
   border-radius: 50%;
-  background: var(--accent-soft);
-  color: var(--accent-text);
+  background: linear-gradient(135deg, var(--accent), var(--accent-hover));
+  color: #fff;
+  box-shadow: var(--shadow-accent);
+}
+
+/* Pulse ring around the bell */
+.push-prompt-ring {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 2px solid var(--accent-text);
+  animation: pushRing 2s ease-out infinite;
+}
+
+.push-prompt-bell {
+  transform-origin: 50% 8%;
+  animation: pushBell 3.2s ease-in-out 0.8s infinite;
+}
+
+/* Unread-style red dot */
+.push-prompt-dot {
+  position: absolute;
+  top: 1px;
+  right: 1px;
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background: #fff;
+  border: 2px solid var(--accent);
 }
 
 .push-prompt-body strong {
-  font-size: 14px;
+  display: block;
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--text);
+  letter-spacing: -0.01em;
 }
 
 .push-prompt-body p {
-  margin: 2px 0 10px;
+  margin: 4px 0 10px;
   font-size: 13px;
+  line-height: 1.55;
   color: var(--text-muted);
+}
+
+.push-prompt-perks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  list-style: none;
+  margin: 0 0 14px;
+  padding: 0;
+}
+
+.push-prompt-perks li {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 11.5px;
+  font-weight: 600;
+  color: var(--text);
+  background: var(--accent-soft);
+  border: 1px solid var(--accent-border);
+}
+
+.push-prompt-perks svg {
+  color: var(--accent-text);
 }
 
 .push-prompt-actions {
   display: flex;
-  gap: 8px;
+  align-items: center;
+  gap: 10px;
 }
 
 .push-prompt-allow,
 .push-prompt-later {
-  padding: 7px 16px;
-  border-radius: 999px;
+  font-family: inherit;
   font-size: 13px;
   font-weight: 600;
   cursor: pointer;
-  font-family: inherit;
 }
 
+/* Primary call to action */
 .push-prompt-allow {
+  position: relative;
+  overflow: hidden;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 10px 18px;
+  border-radius: 999px;
   background: var(--accent);
-  border: 1px solid var(--accent);
+  border: 1px solid var(--accent-text);
   color: #fff;
+  animation: pushPulse 2.2s ease-in-out infinite;
+}
+
+.push-prompt-allow::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -70%;
+  width: 45%;
+  height: 100%;
+  background: linear-gradient(
+    120deg,
+    transparent,
+    rgba(255, 255, 255, 0.45),
+    transparent
+  );
+  transform: skewX(-20deg);
+  animation: pushShine 3s ease-in-out 1.2s infinite;
+  pointer-events: none;
 }
 
 .push-prompt-allow:hover {
   background: var(--accent-hover);
+  transform: translateY(-2px) scale(1.03);
 }
 
+.push-prompt-allow:active {
+  transform: scale(0.97);
+}
+
+/* Quiet secondary action */
 .push-prompt-later {
-  background: transparent;
-  border: 1px solid var(--border-strong);
+  padding: 8px 6px;
+  background: none;
+  border: none;
+  color: var(--text-faint);
+}
+
+.push-prompt-later:hover {
   color: var(--text-muted);
+  text-decoration: underline;
+}
+
+.push-prompt-foot {
+  display: block;
+  margin-top: 10px;
+  font-size: 11px;
+  color: var(--text-faint);
 }
 
 .push-prompt-close {
@@ -235,6 +369,113 @@ a.notif-item:hover {
   color: var(--text-faint);
   cursor: pointer;
   padding: 2px;
+}
+
+.push-prompt-close:hover {
+  color: var(--text);
+}
+
+@keyframes pushIn {
+  from {
+    opacity: 0;
+    transform: translateY(40px) scale(0.92);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes pushInTop {
+  from {
+    opacity: 0;
+    transform: translateY(-40px) scale(0.94);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes pushFloat {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-4px);
+  }
+}
+
+@keyframes pushBar {
+  to {
+    background-position: -200% 0;
+  }
+}
+
+@keyframes pushRing {
+  0% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(1.7);
+    opacity: 0;
+  }
+}
+
+@keyframes pushBell {
+  0%,
+  55%,
+  100% {
+    transform: rotate(0);
+  }
+  60% {
+    transform: rotate(16deg);
+  }
+  66% {
+    transform: rotate(-14deg);
+  }
+  72% {
+    transform: rotate(10deg);
+  }
+  78% {
+    transform: rotate(-8deg);
+  }
+  84% {
+    transform: rotate(4deg);
+  }
+}
+
+@keyframes pushPulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(var(--accent-rgb), 0.6);
+  }
+  50% {
+    box-shadow: 0 0 0 9px rgba(var(--accent-rgb), 0);
+  }
+}
+
+@keyframes pushShine {
+  0%,
+  60% {
+    left: -70%;
+  }
+  100% {
+    left: 140%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .push-prompt,
+  .push-prompt-glow,
+  .push-prompt-ring,
+  .push-prompt-bell,
+  .push-prompt-allow,
+  .push-prompt-allow::after {
+    animation: none !important;
+  }
 }
 
 @media (max-width: 768px) {
@@ -269,6 +510,14 @@ a.notif-item:hover {
     left: 12px;
     width: auto;
     max-width: none;
+    padding: 18px 14px 14px;
+    animation:
+      pushInTop 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) both,
+      pushFloat 4s ease-in-out 1s infinite;
+  }
+
+  .push-prompt-actions {
+    flex-wrap: wrap;
   }
 }
 

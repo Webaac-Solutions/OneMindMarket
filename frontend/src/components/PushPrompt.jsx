@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import OneSignal from "react-onesignal";
-import { FiBell, FiX } from "react-icons/fi";
+import { FiBell, FiX, FiCheck } from "react-icons/fi";
 import "@/styles/Notifications.css";
 
 const APP_ID = process.env.NEXT_PUBLIC_ONESIGNAL_APP_ID;
@@ -170,22 +170,42 @@ const PushPrompt = () => {
     <div
       className="push-prompt"
       role="dialog"
-      aria-label="Enable notifications"
+      aria-label="Turn on notifications"
     >
-      <span className="push-prompt-icon">
-        <FiBell size={20} />
+      <span className="push-prompt-glow" aria-hidden="true" />
+      <span className="push-prompt-icon" aria-hidden="true">
+        <span className="push-prompt-ring" />
+        <FiBell size={22} className="push-prompt-bell" />
+        <span className="push-prompt-dot" />
       </span>
       <div className="push-prompt-body">
-        <strong>Stay updated</strong>
-        <p>Get notified about new announcements and offers.</p>
+        <strong>Be the first to know</strong>
+        <p>
+          Get instant alerts for new announcements, member offers and fresh
+          local businesses, right on your device.
+        </p>
+        <ul className="push-prompt-perks">
+          <li>
+            <FiCheck size={12} /> Announcements
+          </li>
+          <li>
+            <FiCheck size={12} /> Offers
+          </li>
+          <li>
+            <FiCheck size={12} /> New businesses
+          </li>
+        </ul>
         <div className="push-prompt-actions">
           <button type="button" className="push-prompt-allow" onClick={allow}>
-            Allow
+            <FiBell size={14} /> Yes, keep me posted
           </button>
           <button type="button" className="push-prompt-later" onClick={notNow}>
-            Not now
+            Maybe later
           </button>
         </div>
+        <span className="push-prompt-foot">
+          Free &bull; One tap &bull; Turn off anytime from the bell
+        </span>
       </div>
       <button
         type="button"
