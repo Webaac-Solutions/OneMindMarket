@@ -59,7 +59,7 @@
 
 .hero-title em {
   display: block;
-  font-style: italic;
+  font-style: normal;
   color: var(--accent);
 }
 
