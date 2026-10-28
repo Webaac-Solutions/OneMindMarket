@@ -1,5 +1,5 @@
 import PageHeading from "@/components/PageHeading";
-import AnnouncementsClient from "@/components/AnnouncementsClient";
+import AnnouncementsClient from "@/components/Announcementsclient";
 import { BASE_URL, UPLOADS_URL, SITE_URL } from "@/lib/api";
 import "@/styles/Announcements.css";
 
