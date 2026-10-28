@@ -15,7 +15,7 @@ import {
 } from "react-icons/fi";
 import { BASE_URL, UPLOADS_URL } from "@/lib/api";
 import { getCategoryIcon } from "@/lib/categoryIcons";
-import { FAQS, HOME_FAQ_LIMIT } from "@/lib/faqs";
+import { FAQS, HOME_FAQ_LIMIT, searchFaqs } from "@/lib/faqs";
 import "@/styles/Home.css";
 import "@/styles/Faq.css";
 
@@ -48,6 +48,9 @@ const HomeClient = ({
   initialPopularCategories = [],
   initialLocations = [],
 }) => {
+  const [faqQuery, setFaqQuery] = useState("");
+  const faqTerm = faqQuery.trim();
+  const faqResults = faqTerm ? searchFaqs(faqTerm) : null;
   const [categories, setCategories] = useState(initialCategories);
   const [popularCategories, setPopularCategories] = useState(
     initialPopularCategories,
@@ -529,20 +532,51 @@ const HomeClient = ({
           <span className="eyebrow">FAQ</span>
           <h2>Frequently Asked Questions</h2>
         </div>
+        <div className="faq-search">
+          <FiSearch size={18} className="faq-search-icon" />
+          <input
+            type="text"
+            value={faqQuery}
+            onChange={(e) => setFaqQuery(e.target.value)}
+            placeholder="Search questions..."
+            aria-label="Search questions"
+          />
+        </div>
         <div className="faq-list">
-          {FAQS.slice(0, HOME_FAQ_LIMIT).map((f) => (
-            <div key={f.id} className="faq-item">
-              <p className="faq-q">
-                <span className="faq-label">Q:</span> {f.question}
-              </p>
-              <p className="faq-a">
-                <span className="faq-label">A:</span> {f.answer}
-              </p>
-            </div>
-          ))}
+          {faqResults && faqResults.length === 0 && (
+            <p className="faq-empty">No matching questions found.</p>
+          )}
+          {(faqResults || FAQS.slice(0, HOME_FAQ_LIMIT)).map((f) =>
+            FAQS.indexOf(f) < HOME_FAQ_LIMIT ? (
+              <div key={f.id} className="faq-item">
+                <p className="faq-q">
+                  <span className="faq-label">Q:</span> {f.question}
+                </p>
+                <p className="faq-a">
+                  <span className="faq-label">A:</span> {f.answer}
+                </p>
+              </div>
+            ) : (
+              <Link
+                key={f.id}
+                href={`/faq?q=${encodeURIComponent(f.question)}`}
+                className="faq-item faq-item--link"
+              >
+                <p className="faq-q">
+                  <span className="faq-label">Q:</span> {f.question}
+                </p>
+                <span className="faq-link-hint">
+                  View answer on FAQ page <FiArrowRight size={14} />
+                </span>
+              </Link>
+            ),
+          )}
         </div>
         <div className="faq-more">
-          <Link href="/faq" className="faq-more-link">
+          <Link
+            href={faqTerm ? `/faq?q=${encodeURIComponent(faqTerm)}` : "/faq"}
+            className="faq-more-link"
+          >
             Read more <FiArrowRight size={16} />
           </Link>
         </div>

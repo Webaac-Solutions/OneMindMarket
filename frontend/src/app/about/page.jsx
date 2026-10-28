@@ -4,7 +4,7 @@ import SeoJsonLd from "@/components/SeoJsonLd";
 import AboutLoadGate from "@/components/AboutLoadGate";
 import { SITE_URL } from "@/lib/api";
 import { buildBreadcrumbList, buildWebPageJsonLd } from "@/lib/seo";
-import "@/styles/About.css";
+import "@/styles/about.css";
 
 export const metadata = {
   title: "About OneMind Market",

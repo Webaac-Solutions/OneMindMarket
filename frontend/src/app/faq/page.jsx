@@ -1,5 +1,5 @@
 import PageHeading from "@/components/PageHeading";
-import { FAQS } from "@/lib/faqs";
+import FaqClient from "@/components/FaqClient";
 import { SITE_URL } from "@/lib/api";
 import "@/styles/Faq.css";
 
@@ -10,7 +10,9 @@ export const metadata = {
   alternates: { canonical: `${SITE_URL}/faq` },
 };
 
-export default function FaqPage() {
+export default function FaqPage({ searchParams }) {
+  const q = typeof searchParams?.q === "string" ? searchParams.q : "";
+
   return (
     <div className="faq-page">
       <PageHeading
@@ -18,18 +20,7 @@ export default function FaqPage() {
         title="Frequently Asked Questions"
         subtitle="Everything you need to know about OneMind Market"
       />
-      <div className="faq-list">
-        {FAQS.map((f) => (
-          <div key={f.id} className="faq-item">
-            <p className="faq-q">
-              <span className="faq-label">Q:</span> {f.question}
-            </p>
-            <p className="faq-a">
-              <span className="faq-label">A:</span> {f.answer}
-            </p>
-          </div>
-        ))}
-      </div>
+      <FaqClient key={q} initialQuery={q} />
     </div>
   );
 }
