@@ -45,7 +45,7 @@ export default async function LocationListingPage({ params }) {
   const [{ results, total }, categoriesRes] = await Promise.all([
     fetchCustomers({ locationId: location._id, page: 1, limit: 24 }),
     fetch(`${BASE_URL}/locations/${location._id}/categories`, {
-      cache: "no-store",
+      next: { revalidate: 60 },
     })
       .then((r) => (r.ok ? r.json() : []))
       .catch(() => []),

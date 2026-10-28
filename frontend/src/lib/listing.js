@@ -5,7 +5,7 @@ export async function fetchLocationBySlug(slug) {
   if (!slug) return null;
   const res = await fetch(
     `${BASE_URL}/locations/slug/${encodeURIComponent(slug)}`,
-    { cache: "no-store" },
+    { next: { revalidate: 60 } },
   );
   if (!res.ok) return null;
   return res.json();
@@ -15,7 +15,7 @@ export async function fetchCategoryBySlug(slug) {
   if (!slug) return null;
   const res = await fetch(
     `${BASE_URL}/categories/slug/${encodeURIComponent(slug)}`,
-    { cache: "no-store" },
+    { next: { revalidate: 60 } },
   );
   if (!res.ok) return null;
   return res.json();
@@ -33,7 +33,7 @@ export async function fetchCustomers({
   url.searchParams.append("page", page);
   url.searchParams.append("limit", limit);
 
-  const res = await fetch(url, { cache: "no-store" });
+  const res = await fetch(url, { next: { revalidate: 60 } });
   if (!res.ok) return { results: [], total: 0, page: 1, totalPages: 1 };
   return res.json();
 }
@@ -45,7 +45,7 @@ export async function fetchFeaturedCustomers(limit = 8) {
   url.searchParams.append("page", 1);
   url.searchParams.append("limit", limit);
 
-  const res = await fetch(url, { cache: "no-store" });
+  const res = await fetch(url, { next: { revalidate: 60 } });
   if (!res.ok) return [];
   const data = await res.json();
   return data.results || [];
@@ -53,7 +53,7 @@ export async function fetchFeaturedCustomers(limit = 8) {
 
 export async function fetchPopularCategories() {
   const res = await fetch(`${BASE_URL}/categories/popular`, {
-    cache: "no-store",
+    next: { revalidate: 60 },
   });
   if (!res.ok) return [];
   return res.json();

@@ -8,12 +8,14 @@ export async function fetchShopBySlug(effectiveSlug) {
 
   let customer = null;
   if (isObjectId(effectiveSlug)) {
-    const res = await fetch(`${BASE_URL}/customers/${effectiveSlug}`, { cache: "no-store" });
+    const res = await fetch(`${BASE_URL}/customers/${effectiveSlug}`, {
+      next: { revalidate: 60 },
+    });
     if (res.ok) customer = await res.json();
   } else {
     const res = await fetch(
       `${BASE_URL}/customers/slug/${encodeURIComponent(effectiveSlug)}`,
-      { cache: "no-store" },
+      { next: { revalidate: 60 } },
     );
     if (res.ok) customer = await res.json();
   }
@@ -23,9 +25,15 @@ export async function fetchShopBySlug(effectiveSlug) {
 export async function fetchShopPhotos(customerId) {
   const base = `${BASE_URL}/customers/${customerId}/photos`;
   const [g1, g2, g3] = await Promise.all([
-    fetch(`${base}?group=1`, { cache: "no-store" }).then((r) => (r.ok ? r.json() : [])).catch(() => []),
-    fetch(`${base}?group=2`, { cache: "no-store" }).then((r) => (r.ok ? r.json() : [])).catch(() => []),
-    fetch(`${base}?group=3`, { cache: "no-store" }).then((r) => (r.ok ? r.json() : [])).catch(() => []),
+    fetch(`${base}?group=1`, { next: { revalidate: 60 } })
+      .then((r) => (r.ok ? r.json() : []))
+      .catch(() => []),
+    fetch(`${base}?group=2`, { next: { revalidate: 60 } })
+      .then((r) => (r.ok ? r.json() : []))
+      .catch(() => []),
+    fetch(`${base}?group=3`, { next: { revalidate: 60 } })
+      .then((r) => (r.ok ? r.json() : []))
+      .catch(() => []),
   ]);
   return {
     photos1: Array.isArray(g1) ? g1 : [],
@@ -44,9 +52,10 @@ export function shopMetadata(shop) {
   const canonicalUrl = `${SITE_URL}${canonicalShopPath(shop)}`;
   const locationName = shop.location?.name || "";
   const categoryName = shop.category?.name || "Local Business";
-  const title = categoryName && locationName
-    ? `${shop.shopName} - ${categoryName} in ${locationName}`
-    : shop.shopName;
+  const title =
+    categoryName && locationName
+      ? `${shop.shopName} - ${categoryName} in ${locationName}`
+      : shop.shopName;
   const description = truncate(
     shop.shopDescription ||
       `${shop.shopName} is listed on OneMind Market. Find photos, contact details, location, category, and business information.`,

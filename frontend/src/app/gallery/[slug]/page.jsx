@@ -25,7 +25,7 @@ async function getGalleryItem(slug) {
     const res = await fetch(
       `${BASE_URL}/gallery/slug/${encodeURIComponent(slug)}`,
       {
-        cache: "no-store",
+        next: { revalidate: 60 },
       },
     );
     if (!res.ok) return null;

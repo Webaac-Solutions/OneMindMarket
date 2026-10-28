@@ -19,7 +19,7 @@ async function getArticle(slug) {
     const res = await fetch(
       `${BASE_URL}/articles/slug/${encodeURIComponent(slug)}`,
       {
-        cache: "no-store",
+        next: { revalidate: 60 },
       },
     );
     if (!res.ok) return null;

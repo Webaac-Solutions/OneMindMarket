@@ -80,6 +80,9 @@ router.get("/sitemap.xml", async (req, res) => {
     appendUrl(xml, { loc: "/join" });
     appendUrl(xml, { loc: "/gallery" });
     appendUrl(xml, { loc: "/articles" });
+    appendUrl(xml, { loc: "/business-listing" });
+    appendUrl(xml, { loc: "/faq" });
+    appendUrl(xml, { loc: "/announcements" });
 
     for (const location of locations) {
       if (!location.slug) continue;
