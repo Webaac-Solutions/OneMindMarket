@@ -36,7 +36,7 @@ export const metadata = {
 async function getGalleryItems() {
   try {
     const res = await fetch(`${BASE_URL}/gallery`, {
-      cache: "no-store",
+      next: { revalidate: 60 },
       signal: AbortSignal.timeout(8000),
     });
     if (!res.ok) return [];

@@ -1,10 +1,10 @@
-import { Inter } from "next/font/google";
+import { Inter, Carlito } from "next/font/google";
 import { Suspense } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import SplashScreen from "@/components/SplashScreen";
 import PageTransition from "@/components/PageTransition";
-import PushPrompt from "@/components/PushPrompt";
+import PushPromptLazy from "@/components/PushPromptLazy";
 import RouteProgress from "@/components/RouteProgress";
 import SeoJsonLd from "@/components/SeoJsonLd";
 import { SITE_URL } from "@/lib/api";
@@ -16,6 +16,13 @@ const inter = Inter({
   variable: "--font-body",
   weight: ["400", "500", "600", "700"],
   style: ["normal", "italic"],
+  display: "swap",
+});
+
+const logoFont = Carlito({
+  subsets: ["latin"],
+  variable: "--font-logo",
+  weight: ["400", "700"],
   display: "swap",
 });
 
@@ -114,7 +121,7 @@ const organizationJsonLd = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en-IN" className={inter.variable}>
+    <html lang="en-IN" className={`${inter.variable} ${logoFont.variable}`}>
       <head>
         <SeoJsonLd
           data={{
@@ -133,7 +140,7 @@ export default function RootLayout({ children }) {
           <PageTransition>{children}</PageTransition>
         </main>
         <Footer />
-        <PushPrompt />
+        <PushPromptLazy />
       </body>
     </html>
   );

@@ -3,7 +3,11 @@
 import { useEffect, useState, useRef, useCallback } from "react";
 import Image from "next/image";
 import { UPLOADS_URL } from "@/lib/api";
-import GalleryLightbox from "@/components/GalleryLightbox";
+import dynamic from "next/dynamic";
+
+const GalleryLightbox = dynamic(() => import("@/components/GalleryLightbox"), {
+  ssr: false,
+});
 
 function extractYoutubeId(url) {
   if (!url) return null;

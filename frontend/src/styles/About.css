@@ -214,6 +214,8 @@
 }
 
 .about-loader-overlay {
+  opacity: 0;
+  animation: site-loader-delay 0s linear 0.3s forwards;
   position: fixed;
   inset: 0;
   z-index: 40;

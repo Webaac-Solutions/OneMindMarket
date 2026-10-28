@@ -4,39 +4,35 @@ import { useEffect, useState } from "react";
 import Loader from "@/components/Loader";
 import "@/styles/Splash.css";
 
-const MIN_VISIBLE_MS = 600;
+const SHOW_AFTER_MS = 300;
 const MAX_WAIT_MS = 1500;
 
 const SplashScreen = () => {
-  const [visible, setVisible] = useState(true);
+  const [visible, setVisible] = useState(false);
   const [fading, setFading] = useState(false);
 
   useEffect(() => {
-    const start = Date.now();
-    let fadeTimer;
+    if (document.readyState === "complete") return;
+
     let removeTimer;
     let finished = false;
+
+    const showTimer = setTimeout(() => setVisible(true), SHOW_AFTER_MS);
 
     const finish = () => {
       if (finished) return;
       finished = true;
-      const elapsed = Date.now() - start;
-      const wait = Math.max(MIN_VISIBLE_MS - elapsed, 0);
-      fadeTimer = setTimeout(() => setFading(true), wait);
-      removeTimer = setTimeout(() => setVisible(false), wait + 400);
+      clearTimeout(showTimer);
+      setFading(true);
+      removeTimer = setTimeout(() => setVisible(false), 300);
     };
 
     const maxWaitTimer = setTimeout(finish, MAX_WAIT_MS);
-
-    if (document.readyState === "complete") {
-      finish();
-    } else {
-      window.addEventListener("load", finish);
-    }
+    window.addEventListener("load", finish);
 
     return () => {
       window.removeEventListener("load", finish);
-      clearTimeout(fadeTimer);
+      clearTimeout(showTimer);
       clearTimeout(removeTimer);
       clearTimeout(maxWaitTimer);
     };

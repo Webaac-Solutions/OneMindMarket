@@ -12,7 +12,7 @@ import {
 async function safeJson(url) {
   try {
     const res = await fetch(url, {
-      cache: "no-store",
+      next: { revalidate: 60 },
       signal: AbortSignal.timeout(8000),
     });
     if (!res.ok) return null;

@@ -52,7 +52,7 @@
   display: flex;
   align-items: baseline;
   gap: 0.35em;
-  font-family: var(--font-body);
+  font-family: Calibri, Carlito, "Segoe UI", sans-serif;
   font-weight: 700;
   font-size: 19px;
   line-height: 1;
