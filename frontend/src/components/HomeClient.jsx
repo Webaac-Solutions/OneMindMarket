@@ -22,8 +22,8 @@ import "@/styles/Faq.css";
 // TODO: replace with the final client copy
 const HERO_COPY = {
   eyebrow: "Built for native entrepreneurs",
-  title: "Find trusted local businesses, ",
-  highlight: "Grow together",
+  title: "Find Trusted Local Bbusinesses, ",
+  highlight: "Grow Together",
   desc: "Search verified local members of the One Mind Market network.",
 };
 
