@@ -107,11 +107,24 @@ const Footer = () => {
 
         {/* Bottom */}
         <div className="footer-bottom">
-          <p>
+          <p className="footer-copy">
             &copy;{" "}
             <span suppressHydrationWarning>{new Date().getFullYear()}</span> ONE
             MIND MARKET. ALL RIGHTS RESERVED.
           </p>
+
+          <p className="footer-credit">
+            Crafted for your business by{" "}
+            <a
+              href="https://webaac.in/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="footer-credit-link"
+            >
+              Webaac Solutions
+            </a>
+          </p>
+
           <div className="footer-legal">
             <a href="#" onClick={(e) => e.preventDefault()}>
               Privacy Policy
