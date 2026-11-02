@@ -126,12 +126,8 @@ const Footer = () => {
           </p>
 
           <div className="footer-legal">
-            <a href="#" onClick={(e) => e.preventDefault()}>
-              Privacy Policy
-            </a>
-            <a href="#" onClick={(e) => e.preventDefault()}>
-              Terms of Service
-            </a>
+            <Link href="/privacy">Privacy Policy</Link>
+            <Link href="/terms">Terms of Service</Link>
           </div>
         </div>
       </div>

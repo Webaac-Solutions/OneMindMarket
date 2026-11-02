@@ -2,6 +2,8 @@ import { notFound } from "next/navigation";
 import BackButton from "@/components/BackButton";
 import GalleryDetailSlider from "@/components/GalleryDetailSlider";
 import SeoJsonLd from "@/components/SeoJsonLd";
+import Breadcrumbs from "@/components/Breadcrumbs";
+import RelatedContent from "@/components/RelatedContent";
 import { BASE_URL, SITE_URL } from "@/lib/api";
 import {
   absoluteAssetUrl,
@@ -18,6 +20,46 @@ function extractYoutubeId(url) {
     /(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/|youtube\.com\/shorts\/)([a-zA-Z0-9_-]{11})/,
   );
   return match ? match[1] : null;
+}
+
+async function getRelatedGallery(current) {
+  try {
+    const res = await fetch(`${BASE_URL}/gallery`, {
+      next: { revalidate: 60 },
+    });
+    if (!res.ok) return [];
+    const list = await res.json();
+    if (!Array.isArray(list)) return [];
+    const tags = new Set(
+      (current.tags || []).map((t) => String(t).toLowerCase()),
+    );
+    return list
+      .filter((g) => g?.slug && g.slug !== current.slug)
+      .map((g) => ({
+        item: g,
+        score: (g.tags || []).filter((t) => tags.has(String(t).toLowerCase()))
+          .length,
+      }))
+      .sort((x, y) => y.score - x.score)
+      .slice(0, 3)
+      .map(({ item }) => {
+        const entries =
+          item.media && item.media.length > 0
+            ? item.media
+            : (item.images || []).map((url) => ({ type: "image", url }));
+        const first = entries.find((m) => m?.type === "image" && m.url);
+        return {
+          href: `/gallery/${item.slug}`,
+          title: item.title,
+          excerpt: truncate(item.caption || "", 120),
+          image: first
+            ? absoluteAssetUrl(first.url, { thumbnail: true })
+            : null,
+        };
+      });
+  } catch {
+    return [];
+  }
 }
 
 async function getGalleryItem(slug) {
@@ -102,6 +144,7 @@ export default async function GalleryDetailPage({ params }) {
     item.caption || `${item.title} on OneMind Market.`,
     500,
   );
+  const related = await getRelatedGallery(item);
   const breadcrumbs = buildBreadcrumbList([
     { name: "Home", url: SITE_URL },
     { name: "Gallery", url: `${SITE_URL}/gallery` },
@@ -145,6 +188,13 @@ export default async function GalleryDetailPage({ params }) {
       <SeoJsonLd data={pageJsonLd} />
 
       <div className="gallery-detail-container">
+        <Breadcrumbs
+          items={[
+            { name: "Home", href: "/" },
+            { name: "Gallery", href: "/gallery" },
+            { name: item.title },
+          ]}
+        />
         <BackButton fallback="/gallery" />
 
         {media.length > 0 && (
@@ -178,6 +228,11 @@ export default async function GalleryDetailPage({ params }) {
           </div>
         )}
       </div>
+      <RelatedContent
+        heading="More from the gallery"
+        items={related}
+        viewAll={{ href: "/gallery", label: "View full gallery" }}
+      />
     </div>
   );
 }

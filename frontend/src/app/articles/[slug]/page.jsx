@@ -3,6 +3,8 @@ import BackButton from "@/components/BackButton";
 import { notFound } from "next/navigation";
 import SeoJsonLd from "@/components/SeoJsonLd";
 import BackToTop from "@/components/BackToTop";
+import Breadcrumbs from "@/components/Breadcrumbs";
+import RelatedContent from "@/components/RelatedContent";
 import { BASE_URL, UPLOADS_URL, SITE_URL } from "@/lib/api";
 import {
   absoluteAssetUrl,
@@ -19,6 +21,43 @@ function withImageAlts(html, fallback) {
   return String(html || "").replace(/<img\b([^>]*)>/gi, (tag, attrs) =>
     /\balt\s*=/i.test(attrs) ? tag : `<img alt="${safe}"${attrs}>`,
   );
+}
+
+async function getRelatedArticles(current) {
+  try {
+    const res = await fetch(`${BASE_URL}/articles`, {
+      next: { revalidate: 60 },
+    });
+    if (!res.ok) return [];
+    const list = await res.json();
+    if (!Array.isArray(list)) return [];
+    const tags = new Set(
+      (current.tags || []).map((t) => String(t).toLowerCase()),
+    );
+    return list
+      .filter((a) => a?.slug && a.slug !== current.slug)
+      .map((a) => ({
+        article: a,
+        score: (a.tags || []).filter((t) => tags.has(String(t).toLowerCase()))
+          .length,
+      }))
+      .sort(
+        (x, y) =>
+          y.score - x.score ||
+          new Date(y.article.createdAt) - new Date(x.article.createdAt),
+      )
+      .slice(0, 3)
+      .map(({ article }) => ({
+        href: `/articles/${article.slug}`,
+        title: article.title,
+        excerpt: truncate(article.excerpt || "", 140),
+        image: article.featuredImage
+          ? `${UPLOADS_URL}/${article.featuredImage}`
+          : null,
+      }));
+  } catch {
+    return [];
+  }
 }
 
 async function getArticle(slug) {
@@ -104,6 +143,7 @@ export default async function ArticleDetailPage({ params }) {
     article.excerpt || article.content || article.title,
     500,
   );
+  const related = await getRelatedArticles(article);
   const breadcrumbs = buildBreadcrumbList([
     { name: "Home", url: SITE_URL },
     { name: "Articles", url: `${SITE_URL}/articles` },
@@ -162,6 +202,13 @@ export default async function ArticleDetailPage({ params }) {
       <SeoJsonLd data={pageJsonLd} />
 
       <div className="article-detail-container">
+        <Breadcrumbs
+          items={[
+            { name: "Home", href: "/" },
+            { name: "Articles", href: "/articles" },
+            { name: article.title },
+          ]}
+        />
         <BackButton fallback="/articles" />
 
         {imageUrl && (
@@ -179,7 +226,7 @@ export default async function ArticleDetailPage({ params }) {
         <h1 className="article-detail-title">{article.title}</h1>
 
         <div className="article-detail-meta">
-          <span>{article.author || "Admin"}</span>
+          <span>By {article.author || "OneMind Market"}</span>
           <span>&middot;</span>
           <time dateTime={article.createdAt}>
             {new Date(article.createdAt).toLocaleDateString("en-US", {
@@ -200,6 +247,21 @@ export default async function ArticleDetailPage({ params }) {
           </div>
         )}
 
+        {article.updatedAt &&
+          new Date(article.updatedAt).toDateString() !==
+            new Date(article.createdAt).toDateString() && (
+            <p className="article-byline">
+              Last updated{" "}
+              <time dateTime={article.updatedAt}>
+                {new Date(article.updatedAt).toLocaleDateString("en-US", {
+                  year: "numeric",
+                  month: "long",
+                  day: "numeric",
+                })}
+              </time>
+            </p>
+          )}
+
         <div
           className="article-detail-content"
           dangerouslySetInnerHTML={{
@@ -207,6 +269,11 @@ export default async function ArticleDetailPage({ params }) {
           }}
         />
       </div>
+      <RelatedContent
+        heading="Related articles"
+        items={related}
+        viewAll={{ href: "/articles", label: "View all articles" }}
+      />
       <BackToTop />
     </div>
   );

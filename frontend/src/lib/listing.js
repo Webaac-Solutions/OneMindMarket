@@ -21,6 +21,24 @@ export async function fetchCategoryBySlug(slug) {
   return res.json();
 }
 
+export async function fetchLocations() {
+  try {
+    const res = await fetch(`${BASE_URL}/locations`, {
+      next: { revalidate: 60 },
+    });
+    if (!res.ok) return [];
+    const data = await res.json();
+    return Array.isArray(data) ? data : [];
+  } catch {
+    return [];
+  }
+}
+
+export function parsePage(value) {
+  const n = parseInt(Array.isArray(value) ? value[0] : value, 10);
+  return Number.isFinite(n) && n > 0 ? n : 1;
+}
+
 export async function fetchCustomers({
   locationId,
   categoryId,
@@ -59,9 +77,10 @@ export async function fetchPopularCategories() {
   return res.json();
 }
 
-export function locationListingMetadata(location, isEmpty = false) {
-  const canonicalUrl = `${SITE_URL}/${location.slug}`;
-  const title = `Local Businesses in ${location.name}`;
+export function locationListingMetadata(location, isEmpty = false, page = 1) {
+  const basePath = `${SITE_URL}/${location.slug}`;
+  const canonicalUrl = page > 1 ? `${basePath}?page=${page}` : basePath;
+  const title = `Local Businesses in ${location.name}${page > 1 ? ` - Page ${page}` : ""}`;
   const description = truncate(
     `Browse trusted local businesses, entrepreneurs, products, and services in ${location.name} on OneMind Market. Explore business profiles, contact details, photos, and categories.`,
     160,
@@ -102,9 +121,15 @@ export function locationListingMetadata(location, isEmpty = false) {
   };
 }
 
-export function categoryListingMetadata(location, category, isEmpty = false) {
-  const canonicalUrl = `${SITE_URL}/${location.slug}/${category.slug}`;
-  const title = `${category.name} in ${location.name}`;
+export function categoryListingMetadata(
+  location,
+  category,
+  isEmpty = false,
+  page = 1,
+) {
+  const basePath = `${SITE_URL}/${location.slug}/${category.slug}`;
+  const canonicalUrl = page > 1 ? `${basePath}?page=${page}` : basePath;
+  const title = `${category.name} in ${location.name}${page > 1 ? ` - Page ${page}` : ""}`;
   const description = truncate(
     `Find trusted ${category.name} businesses and services in ${location.name} on OneMind Market. Browse local business profiles, photos, contact information, and related businesses.`,
     160,
