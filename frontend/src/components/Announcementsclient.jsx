@@ -319,7 +319,9 @@ export default function AnnouncementsClient({ items = [], uploadsUrl }) {
               <div className="an-modal-actions">
                 {active.url && (
                   <SmartLink url={active.url} className="an-btn-primary">
-                    {isExternal(active.url) ? "Open link" : "Learn more"}
+                    {isExternal(active.url)
+                      ? "Visit website"
+                      : "Open announcement page"}
                     {isExternal(active.url) ? (
                       <FiExternalLink size={15} />
                     ) : (

@@ -14,6 +14,13 @@ import {
 } from "@/lib/seo";
 import "@/styles/Articles.css";
 
+function withImageAlts(html, fallback) {
+  const safe = String(fallback || "").replace(/"/g, "&quot;");
+  return String(html || "").replace(/<img\b([^>]*)>/gi, (tag, attrs) =>
+    /\balt\s*=/i.test(attrs) ? tag : `<img alt="${safe}"${attrs}>`,
+  );
+}
+
 async function getArticle(slug) {
   try {
     const res = await fetch(
@@ -174,13 +181,13 @@ export default async function ArticleDetailPage({ params }) {
         <div className="article-detail-meta">
           <span>{article.author || "Admin"}</span>
           <span>&middot;</span>
-          <span>
+          <time dateTime={article.createdAt}>
             {new Date(article.createdAt).toLocaleDateString("en-US", {
               year: "numeric",
               month: "long",
               day: "numeric",
             })}
-          </span>
+          </time>
         </div>
 
         {article.tags && article.tags.length > 0 && (
@@ -195,7 +202,9 @@ export default async function ArticleDetailPage({ params }) {
 
         <div
           className="article-detail-content"
-          dangerouslySetInnerHTML={{ __html: article.content }}
+          dangerouslySetInnerHTML={{
+            __html: withImageAlts(article.content, article.title),
+          }}
         />
       </div>
       <BackToTop />

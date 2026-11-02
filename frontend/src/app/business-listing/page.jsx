@@ -7,6 +7,7 @@ import {
   buildBusinessListJsonLd,
   buildKeywords,
   truncate,
+  DEFAULT_LOGO,
 } from "@/lib/seo";
 
 async function safeJson(url) {
@@ -141,6 +142,13 @@ export async function generateMetadata({ searchParams }) {
       type: "website",
       siteName: "OneMind Market",
       locale: "en_IN",
+      images: [{ url: DEFAULT_LOGO, alt: "OneMind Market logo" }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${title} | OneMind Market`,
+      description,
+      images: [DEFAULT_LOGO],
     },
     // Filtered query-string views are near-duplicates of the dedicated
     // /{location}/{category} pages, so keep only the unfiltered hub indexed.

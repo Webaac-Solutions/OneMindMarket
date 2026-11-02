@@ -577,7 +577,7 @@ const HomeClient = ({
             href={faqTerm ? `/faq?q=${encodeURIComponent(faqTerm)}` : "/faq"}
             className="faq-more-link"
           >
-            Read more <FiArrowRight size={16} />
+            View all FAQs <FiArrowRight size={16} />
           </Link>
         </div>
       </section>

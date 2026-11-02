@@ -88,6 +88,14 @@ const websiteJsonLd = {
     "A local business directory and discovery platform for trusted businesses and entrepreneurs.",
   inLanguage: "en-IN",
   publisher: { "@id": `${SITE_URL}#organization` },
+  potentialAction: {
+    "@type": "SearchAction",
+    target: {
+      "@type": "EntryPoint",
+      urlTemplate: `${SITE_URL}/business-listing?q={search_term_string}`,
+    },
+    "query-input": "required name=search_term_string",
+  },
 };
 
 const organizationJsonLd = {
