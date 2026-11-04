@@ -22,7 +22,7 @@ const ABOUT_PILLARS = [
 ];
 
 export const metadata = {
-  title: "About OneMind Market",
+  title: "About Us",
   description:
     "Learn how OneMind Market helps native entrepreneurs connect, collaborate, and gain digital visibility through trusted local business discovery.",
   alternates: { canonical: `${SITE_URL}/about` },
@@ -156,16 +156,16 @@ export default function AboutPage() {
       <section className="about-section founder-section">
         <h2>A MESSAGE FROM OUR FOUNDER</h2>
         <div className="founder-content">
-        <figure className="founder-photo">
-          <Image
-            src="/founder-suresh-bose.jpg"
-            alt="Suresh Bose, Founder of One Mind Market"
-            width={800}
-            height={1000}
-            sizes="(max-width: 600px) 75vw, 300px"
-            className="founder-photo-img"
-          />
-        </figure>
+          <figure className="founder-photo">
+            <Image
+              src="/founder-suresh-bose.jpg"
+              alt="Suresh Bose, Founder of One Mind Market"
+              width={800}
+              height={1000}
+              sizes="(max-width: 600px) 75vw, 300px"
+              className="founder-photo-img"
+            />
+          </figure>
           <p>
             During my journey in Vellore, I realized that many talented
             entrepreneurs were working hard but growing alone. They had the
@@ -173,8 +173,8 @@ export default function AboutPage() {
             support, and opportunities.
           </p>
           <p>
-            My journey through media, community building, digital marketing,
-            and business strategy inspired me to create{" "}
+            My journey through media, community building, digital marketing, and
+            business strategy inspired me to create{" "}
             <strong>One Mind Market in 2024</strong> - a platform where
             independent business owners can build trusted relationships,
             exchange referrals, share knowledge, and grow together.
@@ -182,9 +182,9 @@ export default function AboutPage() {
           <p>
             Our mission is to strengthen local businesses, improve their
             visibility, and create opportunities through collaboration. I
-            believe that when entrepreneurs support one another, they build
-            more than successful businesses - they build stronger communities
-            and a lasting legacy.
+            believe that when entrepreneurs support one another, they build more
+            than successful businesses - they build stronger communities and a
+            lasting legacy.
           </p>
           <p>
             Our goal is to empower <strong>1,000 entrepreneurs</strong> to

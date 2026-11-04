@@ -48,7 +48,6 @@ export const metadata = {
     },
   },
   verification: { google: "yCuFDY7F2P2tLI7D9bju8c2TKHQ8nbuE-LNaAqY5zJc" },
-  alternates: { canonical: SITE_URL },
   openGraph: {
     type: "website",
     siteName: SITE_NAME,

@@ -202,7 +202,6 @@ router.get("/robots.txt", (req, res) => {
 Allow: /
 Disallow: /admin/
 Disallow: /api/
-Disallow: /enquiry/
 
 Sitemap: ${SITE_URL}/sitemap.xml
 `;

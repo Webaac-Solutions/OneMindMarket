@@ -87,14 +87,16 @@ const ShopDetailBody = ({ shop, photos1, photos2, photos3 }) => {
       </nav>
 
       <div className="shop-header">
-        <Image
-          src={`${UPLOADS_URL}/${shop.shopPhoto}`}
-          alt={`${mainImageAlt} business photo`}
-          className="shop-main-image"
-          width={250}
-          height={280}
-          priority
-        />
+        {shop.shopPhoto && (
+          <Image
+            src={`${UPLOADS_URL}/${shop.shopPhoto}`}
+            alt={`${mainImageAlt} business photo`}
+            className="shop-main-image"
+            width={250}
+            height={280}
+            priority
+          />
+        )}
 
         <div className="shop-info">
           <h1 className="shop_name">{shop.shopName}</h1>

@@ -7,7 +7,6 @@ Allow: /articles
 Allow: /articles/*
 Disallow: /admin/
 Disallow: /search?
-Disallow: /enquiry/
 Disallow: /api/
 
 Sitemap: https://onemindmarket.in/sitemap.xml

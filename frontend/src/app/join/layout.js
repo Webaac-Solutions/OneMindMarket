@@ -1,7 +1,7 @@
 import { SITE_URL } from "@/lib/api";
 
 export const metadata = {
-  title: "Join OneMind Market",
+  title: "Join the Network",
   description:
     "Join OneMind Market and submit your local business to a trusted entrepreneur and business discovery network.",
   alternates: { canonical: `${SITE_URL}/join` },
@@ -13,7 +13,9 @@ export const metadata = {
     type: "website",
     siteName: "OneMind Market",
     locale: "en_IN",
-    images: [{ url: `${SITE_URL}/onemindlogo.png`, alt: "OneMind Market logo" }],
+    images: [
+      { url: `${SITE_URL}/onemindlogo.png`, alt: "OneMind Market logo" },
+    ],
   },
   twitter: {
     card: "summary_large_image",

@@ -178,12 +178,35 @@ export function buildWebPageJsonLd({
   return page;
 }
 
+const BUSINESS_TYPES = [
+  [/hotel|lodging|resort/i, "Hotel"],
+  [/^\s*bakery\s*$/i, "Bakery"],
+  [/restaurant|cafe|caf\u00e9|food|catering|hotel/i, "FoodEstablishment"],
+  [/automobile|auto service|garage|mechanic|car repair/i, "AutoRepair"],
+  [/hospital|clinic|medical|doctor|health care/i, "MedicalClinic"],
+  [/salon|beauty|spa\b/i, "HealthAndBeautyBusiness"],
+  [/real estate|property/i, "RealEstateAgent"],
+  [/legal|lawyer|advocate/i, "LegalService"],
+  [/accounting|audit|tax/i, "AccountingService"],
+  [/grocery|supermarket/i, "GroceryStore"],
+  [
+    /digital marketing|information technology|software|consult/i,
+    "ProfessionalService",
+  ],
+];
+
+function localBusinessType(categoryName) {
+  const name = String(categoryName || "");
+  const match = BUSINESS_TYPES.find(([pattern]) => pattern.test(name));
+  return match ? match[1] : "LocalBusiness";
+}
+
 export function buildLocalBusinessJsonLd({ shop, url, imageUrls = [] } = {}) {
   if (!shop) return null;
 
   const images = [...new Set(imageUrls.filter(Boolean))];
   const business = {
-    "@type": "LocalBusiness",
+    "@type": localBusinessType(shop.category?.name),
     "@id": `${url}#business`,
     name: cleanText(shop.shopName),
     url,

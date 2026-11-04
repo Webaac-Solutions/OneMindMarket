@@ -52,10 +52,8 @@ export function shopMetadata(shop) {
   const canonicalUrl = `${SITE_URL}${canonicalShopPath(shop)}`;
   const locationName = shop.location?.name || "";
   const categoryName = shop.category?.name || "Local Business";
-  const title =
-    categoryName && locationName
-      ? `${shop.shopName} - ${categoryName} in ${locationName}`
-      : shop.shopName;
+  const shopName = String(shop.shopName || "").trim();
+  const title = locationName ? `${shopName} in ${locationName}` : shopName;
   const description = truncate(
     shop.shopDescription ||
       `${shop.shopName} is listed on OneMind Market. Find photos, contact details, location, category, and business information.`,

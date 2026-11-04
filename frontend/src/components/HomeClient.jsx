@@ -366,7 +366,7 @@ const HomeClient = ({
               <FiChevronLeft size={20} />
             </button>
             <div className="popular-slider" ref={popularSliderRef}>
-              {popularSlides.map((c) => {
+              {popularSlides.map((c, index) => {
                 const Icon = getCategoryIcon(c);
                 return (
                   <Link
@@ -382,6 +382,7 @@ const HomeClient = ({
                           width={260}
                           height={260}
                           sizes="(max-width: 600px) 34vw, 180px"
+                          priority={index < 3}
                           className="popular-card-img"
                         />
                       ) : (
