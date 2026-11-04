@@ -1,0 +1,37 @@
+.confirm-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  animation: admin-fade-in 0.15s ease;
+}
+
+.confirm-modal {
+  background: var(--brand-card, #15171a);
+  border: 1px solid var(--border-subtle, rgba(255,255,255,0.08));
+  border-radius: 14px;
+  padding: 24px 22px 18px;
+  max-width: 360px;
+  width: 100%;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
+  animation: admin-rise-in 0.25s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.confirm-message {
+  color: var(--text-primary, #f2f3f4);
+  font-size: 15px;
+  line-height: 1.5;
+  margin: 0 0 20px;
+}
+
+.confirm-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}

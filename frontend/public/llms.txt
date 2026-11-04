@@ -1,0 +1,21 @@
+# OneMind Market
+
+> OneMind Market is a local business directory and discovery platform in Vellore, Tamil Nadu, India. It connects native entrepreneurs and helps people find trusted local businesses, services, articles, and community content.
+
+## Main pages
+
+- [Home](https://onemindmarket.in/): Search local businesses by location and category
+- [About](https://onemindmarket.in/about): About OneMind Market and how the network works
+- [Join](https://onemindmarket.in/join): Submit a business to the OneMind Market network
+- [Gallery](https://onemindmarket.in/gallery): Photo and video collection
+- [Articles](https://onemindmarket.in/articles): Articles and community content
+
+## Site structure
+
+- Location pages: https://onemindmarket.in/{location}
+- Category pages: https://onemindmarket.in/{location}/{category}
+- Business profiles: https://onemindmarket.in/{location}/{category}/{business}
+
+## Optional
+
+- [Sitemap](https://onemindmarket.in/sitemap.xml): Full list of indexable pages

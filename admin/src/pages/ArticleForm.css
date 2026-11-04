@@ -1,0 +1,160 @@
+/* Article Editor */
+.article-form label {
+  display: block;
+  margin-top: 14px;
+  margin-bottom: 4px;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.article-editor-wrapper .ql-toolbar {
+  border-radius: 6px 6px 0 0;
+}
+
+.article-editor-wrapper .ql-container {
+  border-radius: 0 0 6px 6px;
+}
+
+.article-editor-wrapper .ql-editor {
+  min-height: 300px;
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+/* Preview Overlay */
+.preview-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.preview-modal {
+  background: #fff;
+  max-width: 800px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  border-radius: 12px;
+  position: relative;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+}
+
+.preview-close {
+  position: sticky;
+  top: 10px;
+  float: right;
+  margin: 10px 14px 0 0;
+  background: rgba(0, 0, 0, 0.1);
+  border: none;
+  font-size: 28px;
+  cursor: pointer;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  z-index: 1;
+}
+
+.preview-close:hover {
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.preview-body {
+  padding: 30px 36px;
+}
+
+.preview-image {
+  width: 100%;
+  max-height: 400px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 24px;
+}
+
+.preview-title {
+  font-size: 28px;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin: 0 0 16px;
+  line-height: 1.3;
+}
+
+.preview-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.preview-tag {
+  display: inline-block;
+  padding: 4px 12px;
+  font-size: 12px;
+  font-weight: 600;
+  border-radius: 14px;
+  background: #f0f0f0;
+  color: #555;
+}
+
+.preview-content {
+  font-size: 16px;
+  line-height: 1.8;
+  color: #333;
+}
+
+.preview-content img {
+  max-width: 100%;
+  border-radius: 6px;
+}
+
+.preview-content h1,
+.preview-content h2,
+.preview-content h3 {
+  margin-top: 24px;
+  margin-bottom: 12px;
+  color: #1a1a1a;
+}
+
+.preview-content blockquote {
+  border-left: 4px solid #ddd;
+  padding-left: 16px;
+  margin-left: 0;
+  color: #666;
+  font-style: italic;
+}
+
+/* Status badges */
+.status-draft {
+  background: #fff3cd;
+  color: #856404;
+}
+
+.status-published {
+  background: #d4edda;
+  color: #155724;
+}
+
+.admin-page > .admin-form.article-form {
+  max-width: 900px;
+  width: 100%;
+}
+
+.article-editor-wrapper {
+  width: 100%;
+  max-width: 100%;
+}
+
+.article-editor-wrapper .ql-toolbar {
+  flex-wrap: wrap;
+}

@@ -1,0 +1,219 @@
+.enquiry-page-wrapper {
+  min-height: 100vh;
+  background: var(--bg);
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 28px 20px;
+}
+
+.enquiry-card {
+  width: 100%;
+  max-width: 520px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 36px 32px;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  color: var(--text);
+}
+
+.enquiry-card h2 {
+  font-family: var(--font-display);
+  text-align: center;
+  font-size: 26px;
+  font-weight: 600;
+  margin-bottom: 28px;
+  color: var(--text);
+}
+
+.enquiry-form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.enquiry-field label {
+  font-weight: 600;
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-bottom: 6px;
+  display: block;
+}
+
+.enquiry-field input,
+.enquiry-field textarea {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  outline: none;
+  background-color: var(--surface-2);
+  color: var(--text);
+  font-size: 14px;
+  font-family: var(--font-body);
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.enquiry-field input::placeholder,
+.enquiry-field textarea::placeholder {
+  color: var(--text-faint);
+}
+
+.enquiry-field input:focus,
+.enquiry-field textarea:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-soft);
+}
+
+.enquiry-submit-btn {
+  margin-top: 8px;
+  padding: 14px;
+  background: var(--accent);
+  color: #fff;
+  font-weight: 600;
+  font-size: 15px;
+  border: none;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease;
+}
+
+.enquiry-submit-btn:hover {
+  background: var(--accent-hover);
+  transform: translateY(-1px);
+}
+
+.enquiry-submit-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.enquiry-message {
+  text-align: center;
+  margin-top: 12px;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+@media (max-width: 480px) {
+  .enquiry-card {
+    padding: 28px 20px;
+    border-radius: var(--radius-md);
+  }
+
+  .enquiry-card h2 {
+    font-size: 22px;
+  }
+}
+
+.enquiry-error {
+  display: block;
+  margin-top: 6px;
+  font-size: 12.5px;
+  font-weight: 500;
+  color: var(--accent-text);
+}
+
+.enquiry-field--error input,
+.enquiry-field--error textarea {
+  border-color: #990a0a;
+}
+
+.enquiry-message--error {
+  color: var(--accent-text);
+}
+
+.enquiry-success {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 14px;
+}
+
+.enquiry-success h2 {
+  margin-bottom: 0;
+}
+
+.enquiry-success p {
+  color: var(--text-muted);
+  font-size: 14.5px;
+  line-height: 1.6;
+}
+
+.enquiry-success-icon {
+  width: 64px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: rgba(34, 197, 94, 0.15);
+  border: 1px solid rgba(34, 197, 94, 0.4);
+  color: #22c55e;
+  font-size: 30px;
+  font-weight: 700;
+}
+
+.enquiry-success .enquiry-submit-btn {
+  width: 100%;
+  margin-top: 10px;
+}
+
+.enquiry-secondary-link {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-muted);
+  transition: color 0.2s ease;
+}
+
+.enquiry-secondary-link:hover {
+  color: var(--text);
+}
+
+.enquiry-next-steps {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  text-align: left;
+  counter-reset: enquiry-step;
+}
+
+.enquiry-next-steps li {
+  position: relative;
+  padding: 12px 14px 12px 44px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  color: var(--text-muted);
+  font-size: 14px;
+  line-height: 1.5;
+  counter-increment: enquiry-step;
+}
+
+.enquiry-next-steps li::before {
+  content: counter(enquiry-step);
+  position: absolute;
+  left: 12px;
+  top: 12px;
+  width: 22px;
+  height: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: var(--accent-soft);
+  color: var(--accent-text);
+  font-size: 12px;
+  font-weight: 700;
+}
