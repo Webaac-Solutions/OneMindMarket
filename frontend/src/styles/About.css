@@ -52,7 +52,124 @@
   letter-spacing: 1px;
 }
 
+/* ABOUT US STORY */
+.about-story p {
+  font-size: 17px;
+  line-height: 1.9;
+  color: var(--text-muted);
+  margin-bottom: 18px;
+}
+
+.about-pillars {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin: 12px 0 32px;
+  padding: 0;
+}
+
+.about-pillars li {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-top: 3px solid var(--accent);
+  border-radius: var(--radius-md);
+  padding: 22px 20px;
+}
+
+.about-pillars h3 {
+  font-size: 18px;
+  color: var(--text);
+  margin-bottom: 10px;
+}
+
+.about-pillars p {
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--text-muted);
+}
+
+.about-impact {
+  background: linear-gradient(
+    135deg,
+    var(--surface) 0%,
+    var(--accent-deep) 220%
+  );
+  border: 1px solid var(--accent-border);
+  border-radius: var(--radius-lg);
+  padding: 32px 28px;
+  text-align: center;
+}
+
+.about-impact h3 {
+  font-size: 24px;
+  color: var(--text);
+  margin-bottom: 14px;
+}
+
+.about-impact p {
+  font-size: 16px;
+  line-height: 1.8;
+  color: var(--text-muted);
+  max-width: 760px;
+  margin: 0 auto 14px;
+}
+
+.about-impact .about-impact-tagline {
+  font-size: 18px;
+  font-weight: 700;
+  font-style: italic;
+  color: var(--accent-text);
+  margin-top: 22px;
+}
+
+/* bold lines exactly as in the client PDF, everything else stays normal */
+.about-page strong,
+.about-page .about-bold,
+.about-pillars h3,
+.about-impact h3 {
+  font-weight: 700;
+}
+
+.about-page strong,
+.about-page .about-bold {
+  color: var(--text);
+}
+
 /* FOUNDER'S MESSAGE */
+.founder-content {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--accent);
+  border-radius: var(--radius-md);
+  padding: 28px 28px 14px;
+}
+
+.founder-content .founder-italic {
+  font-style: italic;
+}
+
+/* photo floats right inside the letter card, text wraps under it */
+.founder-content {
+  display: flow-root;
+}
+
+.founder-photo {
+  float: right;
+  width: 300px;
+  margin: 0 0 16px 28px;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  border: 1px solid var(--accent-border);
+  box-shadow: var(--shadow-lg);
+}
+
+.founder-photo-img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
 .founder-content p {
   font-size: 17px;
   line-height: 1.9;
@@ -62,7 +179,6 @@
 
 .founder-sign-off {
   margin-top: 28px;
-  font-style: italic;
   color: var(--text-muted);
 }
 
@@ -151,6 +267,20 @@
 }
 
 /* RESPONSIVE */
+@media (max-width: 900px) {
+  .founder-photo {
+    width: 240px;
+  }
+}
+
+@media (max-width: 600px) {
+  .founder-photo {
+    float: none;
+    width: min(260px, 75%);
+    margin: 0 auto 18px;
+  }
+}
+
 @media (max-width: 768px) {
   .about-hero h1 {
     font-size: 32px;
@@ -170,8 +300,30 @@
   }
 
   .founder-content p,
-  .whatisomm-content p {
+  .whatisomm-content p,
+  .about-story p {
     font-size: 15px;
+  }
+
+  .about-pillars {
+    grid-template-columns: 1fr;
+  }
+
+  .about-impact {
+    padding: 24px 18px;
+  }
+
+  .about-impact h3 {
+    font-size: 20px;
+  }
+
+  .about-impact p,
+  .about-impact .about-impact-tagline {
+    font-size: 15px;
+  }
+
+  .founder-content {
+    padding: 20px 18px 8px;
   }
 
   .contact-field input {

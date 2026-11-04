@@ -13,6 +13,7 @@ const RouteProgress = () => {
 
   useEffect(() => {
     const handleClick = (e) => {
+      if (e.target.closest("button")) return;
       const anchor = e.target.closest("a");
       if (!anchor) return;
       const href = anchor.getAttribute("href");

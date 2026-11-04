@@ -24,7 +24,7 @@ const RESERVED_SLUGS = new Set([
   "business",
   "business-listing",
   "enquiry",
-  "faq",
+  // "faq", // FAQ-OFF: uncomment to restore
   "gallery",
   "join",
   "privacy",

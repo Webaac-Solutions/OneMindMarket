@@ -34,10 +34,7 @@ export default function TermsPage() {
     <div className="legal-page">
       <SeoJsonLd data={jsonLd} />
       <Breadcrumbs
-        items={[
-          { name: "Home", href: "/" },
-          { name: "Terms of Service" },
-        ]}
+        items={[{ name: "Home", href: "/" }, { name: "Terms of Service" }]}
       />
       <h1>Terms of Service</h1>
       <p className="legal-updated">Last updated: November 2026</p>
@@ -49,10 +46,10 @@ export default function TermsPage() {
 
       <h2>Using the directory</h2>
       <p>
-        The directory helps you discover local businesses. Listings are
-        provided by members, and we try to keep them accurate, but we cannot
-        guarantee that every detail is complete or current. Please confirm
-        important details directly with the business.
+        The directory helps you discover local businesses. Listings are provided
+        by members, and we try to keep them accurate, but we cannot guarantee
+        that every detail is complete or current. Please confirm important
+        details directly with the business.
       </p>
 
       <h2>Membership</h2>
@@ -67,8 +64,7 @@ export default function TermsPage() {
         <li>Provide accurate information when you submit forms.</li>
         <li>Do not misuse the site, send spam, or attempt to disrupt it.</li>
         <li>
-          Do not copy or republish directory content in bulk without
-          permission.
+          Do not copy or republish directory content in bulk without permission.
         </li>
       </ul>
 

@@ -79,6 +79,7 @@ const BusinessListingClient = ({ initialData }) => {
   const [savedLoading, setSavedLoading] = useState(false);
 
   const skippedFirstFetch = useRef(false);
+  const fetchSeq = useRef(0);
   const resultsRef = useRef(null);
   const scrollToResults = useRef(false);
   const lastPushedQ = useRef(initialData?.q || "");
@@ -285,6 +286,7 @@ const BusinessListingClient = ({ initialData }) => {
 
   /* Fetch one page of businesses; page 1 replaces the list, later pages append (Load More) */
   const fetchBusinesses = async (pageNum, { append } = {}) => {
+    const seq = append ? fetchSeq.current : ++fetchSeq.current;
     append ? setLoadingMore(true) : setLoading(true);
     try {
       let categoryId = categoryParam;
@@ -313,6 +315,7 @@ const BusinessListingClient = ({ initialData }) => {
 
       const res = await fetch(url);
       const data = await res.json();
+      if (seq !== fetchSeq.current) return;
       setResults((prev) =>
         append ? [...prev, ...(data.results || [])] : data.results || [],
       );
@@ -321,9 +324,11 @@ const BusinessListingClient = ({ initialData }) => {
       setPage(pageNum);
     } catch (err) {
       console.error(err);
+      if (seq !== fetchSeq.current) return;
       if (!append) setResults([]);
     } finally {
-      append ? setLoadingMore(false) : setLoading(false);
+      if (append) setLoadingMore(false);
+      else if (seq === fetchSeq.current) setLoading(false);
     }
   };
 

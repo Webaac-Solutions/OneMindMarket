@@ -9,7 +9,7 @@ const STATIC_PATHS = [
   "/gallery",
   "/articles",
   "/business-listing",
-  "/faq",
+  // "/faq", // FAQ-OFF: uncomment to restore
   "/announcements",
   "/privacy",
   "/terms",

@@ -82,9 +82,11 @@ const Footer = () => {
               <li>
                 <Link href="/articles">Articles</Link>
               </li>
+              {/* FAQ-OFF: to restore, delete this opening line and the closing line below
               <li>
                 <Link href="/faq">FAQ</Link>
               </li>
+              */}
             </ul>
           </div>
 

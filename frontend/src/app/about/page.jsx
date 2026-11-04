@@ -6,6 +6,21 @@ import { SITE_URL } from "@/lib/api";
 import { buildBreadcrumbList, buildWebPageJsonLd } from "@/lib/seo";
 import "@/styles/About.css";
 
+const ABOUT_PILLARS = [
+  {
+    title: "Trusted Referrals",
+    text: "Build trusted business relationships through genuine referrals, confident recommendations, and shared opportunities that help every entrepreneur grow.",
+  },
+  {
+    title: "Learn, Share and Grow",
+    text: "Learn, share, and grow together through practical insights, shared experiences, and knowledge that helps entrepreneurs overcome challenges and build stronger businesses.",
+  },
+  {
+    title: "Local Visibility, Greater Opportunities",
+    text: "Increase your business visibility with One Mind Market. Help customers discover your verified business, explore your services, and connect with you across categories and cities.",
+  },
+];
+
 export const metadata = {
   title: "About OneMind Market",
   description:
@@ -76,40 +91,119 @@ export default function AboutPage() {
         </p>
       </section>
 
+      {/* ABOUT US - client copy from the PDF */}
+      <section className="about-section about-story-section">
+        <h2>ONE MIND MARKET &ndash; WHERE LOCAL BUSINESSES GROW TOGETHER</h2>
+        <div className="about-story">
+          <p>
+            Every business has a story. A dream that started small, years of
+            hard work, countless challenges, and a person who never gave up on
+            building something of their own.
+          </p>
+          <p className="about-bold">
+            One Mind Market was created for these people - our native
+            entrepreneurs, independent business owners, and local dreamers who
+            work every day to turn their passion into progress.
+          </p>
+          <p>
+            We help businesses improve their visibility, reach more customers,
+            discover new opportunities, and learn from one another through a
+            trusted network and local business directory.
+          </p>
+          <p>
+            Our mission is to strengthen local businesses, empower
+            entrepreneurs, and build thriving communities where success is
+            shared.
+          </p>
+        </div>
+
+        <ul className="about-pillars">
+          {ABOUT_PILLARS.map((pt) => (
+            <li key={pt.title}>
+              <h3>{pt.title}</h3>
+              <p>{pt.text}</p>
+            </li>
+          ))}
+        </ul>
+
+        <div className="about-impact">
+          <h3>Growing Businesses. Strengthening Communities.</h3>
+          <p>
+            We aim to strengthen local economies by helping entrepreneurs
+            support one another, create opportunities, generate jobs, and build
+            a brighter future for their communities.
+          </p>
+          <p>
+            Because behind every small business is a family, a dream, and a
+            future worth supporting.
+          </p>
+          <p>
+            We believe that when we choose to support local entrepreneurs, we
+            are not just helping a business grow - we are helping an entire
+            community move forward.
+          </p>
+          <p className="about-impact-tagline">
+            One Mind Market. Search. Discover. Connect. Support. Grow.
+          </p>
+          <p className="about-bold">
+            Together, let&apos;s build a future where no native entrepreneur has
+            to grow alone.
+          </p>
+        </div>
+      </section>
+
+      {/* FOUNDER MESSAGE - replaced with PDF copy */}
       <section className="about-section founder-section">
-        <h2>FOUNDER'S MESSAGE</h2>
+        <h2>A MESSAGE FROM OUR FOUNDER</h2>
         <div className="founder-content">
+        <figure className="founder-photo">
+          <Image
+            src="/founder-suresh-bose.jpg"
+            alt="Suresh Bose, Founder of One Mind Market"
+            width={800}
+            height={1000}
+            sizes="(max-width: 600px) 75vw, 300px"
+            className="founder-photo-img"
+          />
+        </figure>
           <p>
-            At One Mind Market, my vision is to build a strong ecosystem where
-            native entrepreneurs can connect, collaborate, and grow together. I
-            believe that when local business owners support each other with
-            trust, knowledge, and genuine opportunities, the entire business
-            community becomes stronger.
+            During my journey in Vellore, I realized that many talented
+            entrepreneurs were working hard but growing alone. They had the
+            skills and determination to succeed, but needed the right network,
+            support, and opportunities.
           </p>
           <p>
-            One Mind Market was created as a platform exclusively for native
-            entrepreneurs. It is not designed for franchise chains or large
-            corporate companies, but for independent business owners who are
-            building and growing their own ventures.
+            My journey through media, community building, digital marketing,
+            and business strategy inspired me to create{" "}
+            <strong>One Mind Market in 2024</strong> - a platform where
+            independent business owners can build trusted relationships,
+            exchange referrals, share knowledge, and grow together.
           </p>
           <p>
-            Our goal is to create a trusted community where entrepreneurs
-            exchange business referrals, share knowledge, and help each other
-            grow in a structured and meaningful way. Through the One Mind Market
-            search engine, people can easily discover verified local businesses
-            within our network.
+            Our mission is to strengthen local businesses, improve their
+            visibility, and create opportunities through collaboration. I
+            believe that when entrepreneurs support one another, they build
+            more than successful businesses - they build stronger communities
+            and a lasting legacy.
           </p>
           <p>
-            I strongly believe that empowering native entrepreneurs is the key
-            to building a stronger and more self-reliant business community. One
-            Mind Market is our step toward making that vision a reality.
+            Our goal is to empower <strong>1,000 entrepreneurs</strong> to
+            discover new opportunities and transform their businesses.
+          </p>
+          <p className="about-bold">
+            One Mind Market is more than a platform. It is a movement to help
+            entrepreneurs stop growing alone and start growing together.
+          </p>
+          <p className="founder-italic">
+            Let&apos;s connect, collaborate, and build a better future -
+            together.
           </p>
           <p className="founder-sign-off">
-            Regards,
+            Warm regards,
             <br />
             <strong>Suresh Bose</strong>
             <br />
-            Founder &ndash; One Mind Market
+            Founder, One Mind Market
           </p>
         </div>
       </section>

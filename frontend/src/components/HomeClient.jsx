@@ -15,11 +15,12 @@ import {
 } from "react-icons/fi";
 import { BASE_URL, UPLOADS_URL } from "@/lib/api";
 import { getCategoryIcon } from "@/lib/categoryIcons";
-import { FAQS, HOME_FAQ_LIMIT, searchFaqs } from "@/lib/faqs";
 import "@/styles/Home.css";
-import "@/styles/Faq.css";
+// FAQ-OFF 1/3: uncomment the 2 imports below to restore FAQ
+// import { FAQS, HOME_FAQ_LIMIT, searchFaqs } from "@/lib/faqs";
+// import "@/styles/Faq.css";
 
-// TODO: replace with the final client copy
+// Keep hero short, search card must stay inside the first mobile screen
 const HERO_COPY = {
   eyebrow: "Built for native entrepreneurs",
   title: "Find Trusted Local Businesses, ",
@@ -27,30 +28,33 @@ const HERO_COPY = {
   desc: "Search verified local members of the One Mind Market network.",
 };
 
-// Trimmed from the About page "What is One Mind Market?" section
+// Client copy from the home page PDF (same 3 pillars as the About page)
 const ABOUT_POINTS = [
   {
     title: "Trusted Referrals",
-    text: "Members support each other with genuine business referrals, creating consistent opportunities built on trust and credibility.",
+    text: "Build trusted business relationships through genuine referrals, confident recommendations, and shared opportunities that help every entrepreneur grow.",
   },
   {
-    title: "Knowledge Sharing",
-    text: "Dedicated sessions where members learn practical strategies and real business experiences from fellow entrepreneurs.",
+    title: "Learn, Share and Grow",
+    text: "Learn, share, and grow together through practical insights, shared experiences, and knowledge that helps entrepreneurs overcome challenges and build stronger businesses.",
   },
   {
-    title: "Local Visibility",
-    text: "The One Mind Market Search Engine helps people discover verified local businesses and services within the network.",
+    title: "Local Visibility, Greater Opportunities",
+    text: "Increase your business visibility with One Mind Market. Help customers discover your verified business, explore your services, and connect with you across categories and cities.",
   },
 ];
+
+const JOURNEY_STEPS = ["Search", "Discover", "Connect", "Support", "Grow"];
 
 const HomeClient = ({
   initialCategories = [],
   initialPopularCategories = [],
   initialLocations = [],
 }) => {
-  const [faqQuery, setFaqQuery] = useState("");
-  const faqTerm = faqQuery.trim();
-  const faqResults = faqTerm ? searchFaqs(faqTerm) : null;
+  // FAQ-OFF 2/3: uncomment the 3 lines below to restore FAQ
+  // const [faqQuery, setFaqQuery] = useState("");
+  // const faqTerm = faqQuery.trim();
+  // const faqResults = faqTerm ? searchFaqs(faqTerm) : null;
   const [categories, setCategories] = useState(initialCategories);
   const [popularCategories, setPopularCategories] = useState(
     initialPopularCategories,
@@ -411,19 +415,16 @@ const HomeClient = ({
         <div className="home-about">
           <div className="home-about-text">
             <span className="eyebrow">Who We Are</span>
-            <h2>About One Mind Market</h2>
+            <h2>Where Local Businesses Grow Together</h2>
             <p>
-              <strong>One Mind Market</strong> is a business networking,
-              learning, and discovery platform created exclusively for native
-              entrepreneurs who run and grow their own independent businesses.
-              The purpose of the platform is to bring local business owners into
-              one trusted ecosystem where they can connect, collaborate, and
-              grow together.
+              <strong>One Mind Market</strong> connects local and independent
+              business owners to build relationships, share knowledge, and grow
+              together.
             </p>
             <p>
-              Unlike platforms that include large corporate companies or
-              franchise chains, One Mind Market is designed only for native
-              entrepreneurs who are building their own ventures.
+              Stop growing alone. Join One Mind Market today and become part of
+              a community that grows together, succeeds together, and builds a
+              legacy for generations!
             </p>
             <Link href="/about" className="home-about-link">
               Read our story <FiArrowRight size={16} />
@@ -438,6 +439,18 @@ const HomeClient = ({
             ))}
           </ul>
         </div>
+      </section>
+
+      {/* JOURNEY STRIP - tagline from the PDF */}
+      <section className="home-steps-section fade-in-up fade-in-up--delay-2">
+        <ol className="home-steps">
+          {JOURNEY_STEPS.map((step, i) => (
+            <li key={step}>
+              <span className="home-step-num">{i + 1}</span>
+              {step}
+            </li>
+          ))}
+        </ol>
       </section>
 
       {/* BROWSE BY CATEGORY - same UI as Popular Categories */}
@@ -518,15 +531,16 @@ const HomeClient = ({
         <div className="cta-card">
           <div className="cta-bg-pattern" />
           <h2 className="cta-title">
-            Ready to scale your <br /> local brand?
+            Stop growing alone. <br /> Grow together.
           </h2>
           <p className="cta-desc">
-            Join our community of native entrepreneurs who are transforming
-            local businesses in global successes.
+            Join One Mind Market today and become part of a community that grows
+            together, succeeds together, and builds a legacy for generations!
           </p>
         </div>
       </section>
 
+      {/* FAQ-OFF 3/3: to restore FAQ, delete this line and the comment-end line after the section
       <section className="faq-section fade-in-up fade-in-up--delay-2">
         <div className="faq-section-head">
           <span className="eyebrow">FAQ</span>
@@ -581,6 +595,7 @@ const HomeClient = ({
           </Link>
         </div>
       </section>
+      */}
     </div>
   );
 };

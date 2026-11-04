@@ -448,11 +448,20 @@
 
 @media (max-width: 480px) {
   .hero-section {
-    padding: 20px 12px 16px;
+    padding: 16px 12px 12px;
+  }
+
+  .hero-eyebrow {
+    margin-bottom: 10px;
+  }
+
+  .hero-title {
+    margin-bottom: 10px;
   }
 
   .hero-desc {
     font-size: 13px;
+    line-height: 1.5;
   }
 
   .cta-card {
@@ -775,6 +784,49 @@
   line-height: 1.6;
 }
 
+/* Journey strip: Search > Discover > Connect > Support > Grow */
+.home-steps-section {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 28px 32px 0;
+}
+
+.home-steps {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+}
+
+.home-steps li {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 18px 8px 8px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  color: var(--text);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.home-step-num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+}
+
 .browse-city-section {
   padding-bottom: 56px;
 }
@@ -818,6 +870,19 @@
     grid-template-columns: 1fr;
     gap: 24px;
     padding: 24px 18px;
+  }
+
+  .home-steps-section {
+    padding: 24px 16px 0;
+  }
+
+  .home-steps {
+    gap: 8px;
+  }
+
+  .home-steps li {
+    font-size: 13px;
+    padding-right: 14px;
   }
 
   .browse-city-section {

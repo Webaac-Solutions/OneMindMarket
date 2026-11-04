@@ -81,7 +81,7 @@ router.get("/sitemap.xml", async (req, res) => {
     appendUrl(xml, { loc: "/gallery" });
     appendUrl(xml, { loc: "/articles" });
     appendUrl(xml, { loc: "/business-listing" });
-    appendUrl(xml, { loc: "/faq" });
+    // appendUrl(xml, { loc: "/faq" }); // FAQ-OFF: uncomment to restore
     appendUrl(xml, { loc: "/announcements" });
 
     for (const location of locations) {
