@@ -43,7 +43,7 @@ const SORT_OPTIONS = [
   { value: "nearest", label: "Nearest" },
 ];
 
-const BusinessListingClient = ({ initialData }) => {
+const BusinessListingClient = ({ initialData, fixed }) => {
   const params = useSearchParams();
   const router = useRouter();
 
@@ -84,8 +84,8 @@ const BusinessListingClient = ({ initialData }) => {
   const scrollToResults = useRef(false);
   const lastPushedQ = useRef(initialData?.q || "");
 
-  const locationParam = params.get("location") || "";
-  const categoryParam = params.get("category") || "";
+  const locationParam = fixed?.location || params.get("location") || "";
+  const categoryParam = fixed?.category || params.get("category") || "";
   const qParam = params.get("q") || "";
   const sortParam = params.get("sort") || "";
 
@@ -231,13 +231,7 @@ const BusinessListingClient = ({ initialData }) => {
 
   const selectCategory = (c) => {
     setShowCategoryDropdown(false);
-    if (locationObj) {
-      router.push(
-        c ? `/${locationObj.slug}/${c.slug}` : `/${locationObj.slug}`,
-      );
-    } else {
-      updateFilters({ category: c ? c.slug || c._id : "" });
-    }
+    updateFilters({ category: c ? c.slug || c._id : "" });
   };
 
   const currentSort =
@@ -520,8 +514,12 @@ const BusinessListingClient = ({ initialData }) => {
     <div className="sr-page bl-page">
       <PageHeading
         eyebrow="Directory"
-        title="Business Listing"
-        subtitle="Browse every business on OneMind Market, or narrow down by location and category."
+        title={fixed?.title || "Business Listing"}
+        subtitle={
+          fixed
+            ? fixed.subtitle
+            : "Browse every business on OneMind Market, or narrow down by location and category."
+        }
       />
 
       {/* Free-text search within the listing */}

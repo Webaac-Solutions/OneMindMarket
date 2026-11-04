@@ -1,14 +1,15 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import ListingGrid from "@/components/ListingGrid";
+import { Suspense } from "react";
+import BusinessListingClient from "@/components/BusinessListingClient";
 import SeoJsonLd from "@/components/SeoJsonLd";
-import BackButton from "@/components/BackButton";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import Pagination from "@/components/Pagination";
 import { BASE_URL, SITE_URL } from "@/lib/api";
 import {
   fetchLocationBySlug,
   fetchLocations,
+  fetchCategories,
   fetchCustomers,
   locationListingMetadata,
   parsePage,
@@ -72,12 +73,17 @@ export default async function LocationListingPage({ params, searchParams }) {
 
   const page = parsePage(searchParams?.page);
 
-  const [{ results, total, totalPages }, categories, allLocations] =
-    await Promise.all([
-      fetchCustomers({ locationId: location._id, page, limit: PAGE_SIZE }),
-      fetchLocationCategories(location._id),
-      fetchLocations(),
-    ]);
+  const [
+    { results, total, totalPages },
+    categories,
+    allLocations,
+    allCategories,
+  ] = await Promise.all([
+    fetchCustomers({ locationId: location._id, page, limit: PAGE_SIZE }),
+    fetchLocationCategories(location._id),
+    fetchLocations(),
+    fetchCategories(),
+  ]);
 
   if (page > 1 && page > (totalPages || 1)) notFound();
 
@@ -108,32 +114,31 @@ export default async function LocationListingPage({ params, searchParams }) {
     <div className="sr-page">
       <SeoJsonLd data={jsonLd} />
       <Breadcrumbs items={crumbs} />
-      <BackButton fallback="/" />
-
-      <div className="sr-search-bar-wrap">
-        <h1 style={{ margin: 0 }}>
-          Local Businesses in {location.name}
-          {page > 1 ? ` - Page ${page}` : ""}
-        </h1>
-      </div>
-
-      {total > 0 && (
-        <p className="seo-intro">
-          OneMind Market lists {total} local{" "}
-          {total === 1 ? "business" : "businesses"} in {location.name}
-          {categories.length > 0
-            ? ` across ${categories.length} ${categories.length === 1 ? "category" : "categories"}`
-            : ""}
-          , including verified contact details, photos, and profiles for each
-          entrepreneur and service provider.
-        </p>
-      )}
+      <Suspense fallback={null}>
+        <BusinessListingClient
+          fixed={{
+            location: location.slug,
+            title: `Local Businesses in ${location.name}${page > 1 ? ` - Page ${page}` : ""}`,
+            subtitle:
+              total > 0
+                ? `OneMind Market lists ${total} local ${total === 1 ? "business" : "businesses"} in ${location.name}${categories.length > 0 ? ` across ${categories.length} ${categories.length === 1 ? "category" : "categories"}` : ""}, including verified contact details, photos, and profiles for each entrepreneur and service provider.`
+                : undefined,
+          }}
+          initialData={{
+            locations: allLocations,
+            categories: allCategories,
+            popularCategories: [],
+            categoriesInLocation: categories,
+            q: "",
+            initialResults: results,
+            initialTotal: total,
+            initialTotalPages: 1,
+          }}
+        />
+      </Suspense>
 
       {categories.length > 0 && (
-        <div
-          className="seo-links"
-          style={{ marginTop: 0, borderTop: "none", paddingTop: 0 }}
-        >
+        <div className="seo-links">
           <h2>Browse {location.name} by category</h2>
           <ul>
             {categories
@@ -148,11 +153,6 @@ export default async function LocationListingPage({ params, searchParams }) {
           </ul>
         </div>
       )}
-
-      <ListingGrid
-        results={results}
-        emptyMessage={`No businesses in ${location.name} yet.`}
-      />
 
       <Pagination basePath={basePath} page={page} totalPages={totalPages} />
 

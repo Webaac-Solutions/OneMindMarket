@@ -1,8 +1,8 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import ListingGrid from "@/components/ListingGrid";
+import { Suspense } from "react";
+import BusinessListingClient from "@/components/BusinessListingClient";
 import SeoJsonLd from "@/components/SeoJsonLd";
-import BackButton from "@/components/BackButton";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import Pagination from "@/components/Pagination";
 import { BASE_URL, SITE_URL } from "@/lib/api";
@@ -10,6 +10,8 @@ import {
   fetchLocationBySlug,
   fetchCategoryBySlug,
   fetchCustomers,
+  fetchLocations,
+  fetchCategories,
   categoryListingMetadata,
   parsePage,
 } from "@/lib/listing";
@@ -58,17 +60,22 @@ export default async function CategoryListingPage({ params, searchParams }) {
 
   const page = parsePage(searchParams?.page);
 
-  const [{ results, total, totalPages }, siblingCategories] = await Promise.all(
-    [
-      fetchCustomers({
-        locationId: location._id,
-        categoryId: category._id,
-        page,
-        limit: PAGE_SIZE,
-      }),
-      fetchLocationCategories(location._id),
-    ],
-  );
+  const [
+    { results, total, totalPages },
+    siblingCategories,
+    allLocations,
+    allCategories,
+  ] = await Promise.all([
+    fetchCustomers({
+      locationId: location._id,
+      categoryId: category._id,
+      page,
+      limit: PAGE_SIZE,
+    }),
+    fetchLocationCategories(location._id),
+    fetchLocations(),
+    fetchCategories(),
+  ]);
 
   if (page > 1 && page > (totalPages || 1)) notFound();
 
@@ -100,28 +107,29 @@ export default async function CategoryListingPage({ params, searchParams }) {
     <div className="sr-page">
       <SeoJsonLd data={jsonLd} />
       <Breadcrumbs items={crumbs} />
-      <BackButton fallback={`/${location.slug}`} />
-
-      <div className="sr-search-bar-wrap">
-        <h1 style={{ margin: 0 }}>
-          {category.name} in {location.name}
-          {page > 1 ? ` - Page ${page}` : ""}
-        </h1>
-      </div>
-
-      {total > 0 && (
-        <p className="seo-intro">
-          OneMind Market lists {total} {category.name}{" "}
-          {total === 1 ? "business" : "businesses"} in {location.name}, with
-          verified contact details, photos, and profiles for each entrepreneur
-          and service provider.
-        </p>
-      )}
-
-      <ListingGrid
-        results={results}
-        emptyMessage={`No ${category.name} businesses in ${location.name} yet.`}
-      />
+      <Suspense fallback={null}>
+        <BusinessListingClient
+          fixed={{
+            location: location.slug,
+            category: category.slug,
+            title: `${category.name} in ${location.name}${page > 1 ? ` - Page ${page}` : ""}`,
+            subtitle:
+              total > 0
+                ? `OneMind Market lists ${total} ${category.name} ${total === 1 ? "business" : "businesses"} in ${location.name}, with verified contact details, photos, and profiles for each entrepreneur and service provider.`
+                : undefined,
+          }}
+          initialData={{
+            locations: allLocations,
+            categories: allCategories,
+            popularCategories: [],
+            categoriesInLocation: siblingCategories,
+            q: "",
+            initialResults: results,
+            initialTotal: total,
+            initialTotalPages: 1,
+          }}
+        />
+      </Suspense>
 
       <Pagination basePath={basePath} page={page} totalPages={totalPages} />
 

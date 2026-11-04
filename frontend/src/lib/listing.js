@@ -34,6 +34,19 @@ export async function fetchLocations() {
   }
 }
 
+export async function fetchCategories() {
+  try {
+    const res = await fetch(`${BASE_URL}/categories`, {
+      next: { revalidate: 60 },
+    });
+    if (!res.ok) return [];
+    const data = await res.json();
+    return Array.isArray(data) ? data : [];
+  } catch {
+    return [];
+  }
+}
+
 export function parsePage(value) {
   const n = parseInt(Array.isArray(value) ? value[0] : value, 10);
   return Number.isFinite(n) && n > 0 ? n : 1;
