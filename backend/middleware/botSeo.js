@@ -4,7 +4,10 @@ const Customer = require("../models/Customer");
 const Article = require("../models/Article");
 const Gallery = require("../models/Gallery");
 
-const SITE_URL = "https://onemindmarket.in";
+const SITE_URL = (process.env.SITE_URL || "https://onemindmarket.in").replace(
+  /\/+$/,
+  "",
+);
 
 const BOT_UA =
   /googlebot|bingbot|yandex|baiduspider|facebookexternalhit|twitterbot|rogerbot|linkedinbot|embedly|quora link preview|showyoubot|outbrain|pinterest|slackbot|vkShare|W3C_Validator|whatsapp/i;

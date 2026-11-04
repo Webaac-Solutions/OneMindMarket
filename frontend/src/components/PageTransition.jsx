@@ -16,7 +16,7 @@ const PageTransition = ({ children }) => {
       <motion.div
         key={pathname}
         variants={variants}
-        initial="initial"
+        initial={false}
         animate="animate"
         transition={{ duration: 0.38, ease: [0.16, 1, 0.3, 1] }}
       >

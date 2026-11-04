@@ -6,7 +6,10 @@ const Location = require("../models/Location");
 const Article = require("../models/Article");
 const Gallery = require("../models/Gallery");
 
-const SITE_URL = "https://onemindmarket.in";
+const SITE_URL = (process.env.SITE_URL || "https://onemindmarket.in").replace(
+  /\/+$/,
+  "",
+);
 
 function xmlEscape(value) {
   return String(value ?? "")

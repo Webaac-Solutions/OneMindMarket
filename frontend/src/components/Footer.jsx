@@ -71,7 +71,7 @@ const Footer = () => {
 
           {/* Network */}
           <div className="footer-links-col">
-            <h4 className="footer-col-title">Network</h4>
+            <div className="footer-col-title">Network</div>
             <ul className="footer-link-list">
               <li>
                 <Link href="/business-listing">Members Directory</Link>
@@ -92,7 +92,7 @@ const Footer = () => {
 
           {/* Connect */}
           <div className="footer-links-col">
-            <h4 className="footer-col-title">Connect</h4>
+            <div className="footer-col-title">Connect</div>
             <ul className="footer-link-list">
               <li>
                 <Link href="/about#contact-us">Contact Support</Link>
