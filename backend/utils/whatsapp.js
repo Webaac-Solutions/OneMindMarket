@@ -1,8 +1,14 @@
 const https = require("https");
 
 const DEFAULT_API_VERSION = "v22.0";
-const DEFAULT_PHONE_NUMBER_ID = "1193595493837770";
-const DEFAULT_TEMPLATE_NAME = "enquiry_notification";
+// Legacy sender settings are retained for reference.
+// Active values come from the backend process environment.
+// const LEGACY_PHONE_NUMBER_ID = "1193595493837770";
+// const LEGACY_TEMPLATE_NAME = "enquiry_notification";
+const DEFAULT_PHONE_NUMBER_ID = "1290284064178412";
+const DEFAULT_TEMPLATE_NAME = "new_business_enquiry";
+const DEFAULT_TEMPLATE_LANGUAGE = "en";
+const MAX_ENQUIRY_PARAMETER_LENGTH = 1000;
 
 function normalizeWhatsAppNumber(phone) {
   if (!phone) return null;
@@ -10,10 +16,11 @@ function normalizeWhatsAppNumber(phone) {
   let number = String(phone).replace(/\D/g, "");
   if (number.startsWith("00")) number = number.slice(2);
 
-  // Existing customer records often contain a local 10-digit Indian number.
-  // A country code is required by the WhatsApp Cloud API.
-  if (number.length === 10 && process.env.WHATSAPP_DEFAULT_COUNTRY_CODE) {
-    number = `${process.env.WHATSAPP_DEFAULT_COUNTRY_CODE}${number}`;
+  if (number.length === 10) {
+    const countryCode = String(
+      process.env.WHATSAPP_DEFAULT_COUNTRY_CODE || "91",
+    ).replace(/\D/g, "");
+    number = `${countryCode}${number}`;
   }
 
   return number.length >= 8 && number.length <= 15 ? number : null;
@@ -47,10 +54,15 @@ function postJson(url, payload, accessToken) {
 
           if (response.statusCode >= 200 && response.statusCode < 300)
             return resolve(data);
-          const error = new Error(
-            data?.error?.message || "WhatsApp API request failed",
-          );
+          const error = new Error("Meta WhatsApp API request failed");
           error.statusCode = response.statusCode;
+          error.metaCode =
+            Number.isInteger(data?.error?.code) ? data.error.code : null;
+          error.metaType =
+            typeof data?.error?.type === "string" &&
+            /^[A-Za-z]+$/.test(data.error.type)
+              ? data.error.type
+              : null;
           reject(error);
         });
       },
@@ -81,8 +93,30 @@ async function sendEnquiryNotification({ shop, enquiry }) {
     };
   }
 
+  const ownerName = shop.ownerName?.trim();
+  if (!ownerName) {
+    return {
+      sent: false,
+      reason: "Business owner name is not available",
+    };
+  }
+
+  const enquiryDetails = enquiry.enquiry?.trim();
+  if (!enquiryDetails) {
+    return {
+      sent: false,
+      reason: "Enquiry details are not available",
+    };
+  }
+
   const apiVersion = process.env.WHATSAPP_API_VERSION || DEFAULT_API_VERSION;
-  const templateLanguage = process.env.WHATSAPP_TEMPLATE_LANGUAGE || "en_US";
+  const templateLanguage =
+    process.env.WHATSAPP_TEMPLATE_LANGUAGE || DEFAULT_TEMPLATE_LANGUAGE;
+  const receivedAt = new Intl.DateTimeFormat("en-IN", {
+    dateStyle: "medium",
+    timeStyle: "short",
+    timeZone: "Asia/Kolkata",
+  }).format(new Date(enquiry.createdAt || Date.now()));
   const payload = {
     messaging_product: "whatsapp",
     to: recipient,
@@ -94,11 +128,15 @@ async function sendEnquiryNotification({ shop, enquiry }) {
         {
           type: "body",
           parameters: [
-            { type: "text", text: shop.shopName || "Your business" },
-            { type: "text", text: enquiry.name || "Not provided" },
-            { type: "text", text: enquiry.phone || "Not provided" },
-            { type: "text", text: enquiry.enquiry || "Not provided" },
-            { type: "text", text: enquiry.referredBy || "Not provided" },
+            { type: "text", text: ownerName },
+            { type: "text", text: shop.shopName },
+            { type: "text", text: enquiry.name },
+            { type: "text", text: enquiry.phone },
+            {
+              type: "text",
+              text: enquiryDetails.slice(0, MAX_ENQUIRY_PARAMETER_LENGTH),
+            },
+            { type: "text", text: `${receivedAt} IST` },
           ],
         },
       ],
@@ -110,4 +148,7 @@ async function sendEnquiryNotification({ shop, enquiry }) {
   return { sent: true, messageId: result?.messages?.[0]?.id };
 }
 
-module.exports = { sendEnquiryNotification };
+module.exports = {
+  sendEnquiryNotification,
+  MAX_ENQUIRY_PARAMETER_LENGTH,
+};

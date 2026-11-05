@@ -45,7 +45,7 @@ router.post("/", async (req, res) => {
         .json({ message: "Please enter a valid phone number" });
 
     const shop = await Customer.findById(shopId).select(
-      "shopName ownerPhone isActive",
+      "shopName ownerName ownerPhone isActive",
     );
     if (!shop || shop.isActive === false)
       return res.status(404).json({ message: "Business not found" });
@@ -63,10 +63,19 @@ router.post("/", async (req, res) => {
       whatsappNotification = await sendEnquiryNotification({ shop, enquiry });
     } catch (whatsAppError) {
       // The enquiry remains saved even if Meta is temporarily unavailable.
-      console.error(
-        "WhatsApp enquiry notification failed:",
-        whatsAppError.message,
-      );
+      const errorDetails = {};
+      if (Number.isInteger(whatsAppError?.statusCode))
+        errorDetails.statusCode = whatsAppError.statusCode;
+      if (Number.isInteger(whatsAppError?.metaCode))
+        errorDetails.metaCode = whatsAppError.metaCode;
+      if (typeof whatsAppError?.metaType === "string")
+        errorDetails.metaType = whatsAppError.metaType;
+      if (
+        typeof whatsAppError?.code === "string" &&
+        /^[A-Z0-9_]+$/.test(whatsAppError.code)
+      )
+        errorDetails.code = whatsAppError.code;
+      console.error("WhatsApp enquiry notification failed", errorDetails);
       whatsappNotification = {
         sent: false,
         reason: "WhatsApp notification could not be sent",
